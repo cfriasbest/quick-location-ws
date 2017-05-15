@@ -7,5 +7,6 @@
   <modules>
   	<module>persistence</module>
   	<module>services</module>
+  	<module>ws-api</module>
   </modules>
 </project>
