@@ -40,8 +40,10 @@ public class WsApiController extends AbstractController {
 		
 		ResponseForPlaces responce = placeServiceApi.getPlaces("");
 	        if (responce.getResults() == null || responce.getResults().isEmpty()) {
+	        	responce.setStatus("FAILD");
 	            return new ResponseEntity<ResponseForPlaces>(HttpStatus.NOT_FOUND);
 	        }
+	        responce.setStatus("OK");
 	        return new ResponseEntity<ResponseForPlaces>(responce, HttpStatus.OK);
 	}
 

@@ -3,6 +3,8 @@ package com.neko.service.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 import lombok.Getter;
@@ -12,6 +14,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@JsonInclude(Include.NON_EMPTY)
 public class Place implements Serializable{
 
 	private static final long serialVersionUID = 1L;

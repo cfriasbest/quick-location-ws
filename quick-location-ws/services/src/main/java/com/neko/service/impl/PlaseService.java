@@ -63,7 +63,7 @@ public class PlaseService implements PlaceServiceApi {
 		Geometry geometry = new Geometry();
 		Location location = new Location();
 		location.setLat(place.getLat());
-		location.setLng(place.getLng());
+//		location.setLng(place.getLng());
 		geometry.setLocation(location);
 		placeModel.setGeometry(geometry);
 		
