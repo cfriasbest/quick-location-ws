@@ -6,4 +6,17 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>services</artifactId>
+  
+  <dependencies>
+  		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+  		<dependency>
+  			<groupId>com.neko</groupId>
+  			<artifactId>persistence</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
+  		</dependency>
+  </dependencies>
 </project>
