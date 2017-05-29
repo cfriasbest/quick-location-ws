@@ -26,7 +26,7 @@ public class ReviewService implements ReviewServiceApi {
 		// reviewEntity.setAuthorUrl(review.getAuthorUrl());
 		// reviewEntity.setLanguage(review.getLanguage());
 		com.neko.entity.Place place = new com.neko.entity.Place();
-		place.setPlaceId("ChIJe3IIQPqorI8R2kRfwnn9FBwyyyy");
+		// place.setPlaceId("ChIJe3IIQPqorI8R2kRfwnn9FBwyyyy");
 		reviewEntity.setPlace(place);
 		// reviewEntity.setProfilePhotoUrl(review.getProfilePhotoUrl());
 		reviewEntity.setText(review.getText());
