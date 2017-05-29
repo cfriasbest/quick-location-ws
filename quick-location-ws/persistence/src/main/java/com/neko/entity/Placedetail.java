@@ -1,15 +1,20 @@
 package com.neko.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the placedetails database table.
  * 
  */
 @Entity
-@Table(name="placedetails")
+@Table(name = "placedetails")
 public class Placedetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -26,9 +31,9 @@ public class Placedetail implements Serializable {
 
 	private String website;
 
-	//bi-directional one-to-one association to Place
-	@OneToOne( fetch=FetchType.LAZY,orphanRemoval = true)
-	@JoinColumn(name="place_id")
+	// bi-directional one-to-one association to Place
+	@OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "place_id")
 	private Place place;
 
 	public Placedetail() {

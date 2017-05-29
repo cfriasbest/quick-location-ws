@@ -10,11 +10,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.neko.service.PlaceServiceApi;
+import com.neko.service.ReviewServiceApi;
 import com.neko.service.model.ResponseForPlaceDetails;
 import com.neko.service.model.ResponseForPlaces;
+import com.neko.service.model.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 
+ * @author cfriasb
+ *
+ */
 @RestController
 @Slf4j
 public class WsApiController extends AbstractController {
@@ -22,6 +29,38 @@ public class WsApiController extends AbstractController {
 	@Autowired
 	PlaceServiceApi placeServiceApi;
 
+	@Autowired
+	ReviewServiceApi reviewServiceApi;
+
+	public void savePlace() {
+
+	}
+
+	public void setScheduleSuggestion() {
+
+	}
+
+	public void setDirSuggestion() {
+
+	}
+
+	public void setPhoneSuggestion() {
+
+	}
+
+	public void getPlaceDetail() {
+
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/rest/review", method = RequestMethod.POST, headers = "Accept=application/json")
+	public ResponseEntity<Object> setReview(@RequestBody Review review) {
+		log.info("Ingresando al metodo setReview");
+		reviewServiceApi.saveReview(review);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	// ChIJe3IIQPqorI8R2kRfwnn9FBw Place ID
 	@ResponseBody
 	@RequestMapping(value = "/rest/save", method = RequestMethod.POST, headers = "Accept=application/json")
 	public Object savePlacesDetails(@RequestBody ResponseForPlaceDetails placeDetails) {
@@ -33,73 +72,19 @@ public class WsApiController extends AbstractController {
 		log.info("Saliendo al metodo savePlacesDetails");
 		return placeDetails;
 	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/rest/getplaces", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<ResponseForPlaces> getPlaces() {
-		
-		ResponseForPlaces responce = placeServiceApi.getPlaces("");
-	        if (responce.getResults() == null || responce.getResults().isEmpty()) {
-	        	responce.setStatus("FAILD");
-	            return new ResponseEntity<ResponseForPlaces>(HttpStatus.NOT_FOUND);
-	        }
-	        responce.setStatus("OK");
-	        return new ResponseEntity<ResponseForPlaces>(responce, HttpStatus.OK);
-	}
 
-	// @Autowired
-	// PlaceRepo placeRepo;
-	//// PlaceDetailsMapper placeDetailsMapper;
-	////
-	//// @Autowired
-	//// PlaceMapper PlaceMapper;
-	////
-	//// @Autowired
-	//// TypeMapper typeMapper;
-	//
-	//// @ResponseBody
-	//// @RequestMapping(value = "/rest/details", method = RequestMethod.GET,
-	// headers = "Accept=application/json")
-	//// public Object getResponseDetails() {
-	////
-	//// return
-	// placeDetailsMapper.getPlaceDetailsByPlaceId("ChIJYwPo2_GorI8RDsFC8PFdoqs");
-	//// }
-	////
-	//// @ResponseBody
-	//// @RequestMapping(value = "/rest/api", method = RequestMethod.GET,
-	// headers = "Accept=application/json")
-	//// public Object getResponseApi() {
-	////
-	//// return PlaceMapper.getPlaceByPlaceId("ChIJYwPo2_GorI8RDsFC8PFdoqs");
-	//// }
-	//
-	// @ResponseBody
-	// @RequestMapping(value = "/rest/papi", method = RequestMethod.GET, headers
-	// = "Accept=application/json")
-	// public PlaceJson getResponsePApi() {
-	// PlaceJson placeJson = new PlaceJson();
-	// PlaceDetail place = new PlaceDetail();
-	// place.setPlaceId("Periculo");
-	// placeJson.setResult(place);
-	// return placeJson;
-	// }
-	//
-	//
-	// @ResponseBody
-	// @RequestMapping(value = "/rest/save", method = RequestMethod.POST,
-	// headers = "Accept=application/json")
-	//// @Transactional
-	// public Object getSave(@RequestBody ResponseForPlaceDetails placeDetails)
-	// {
-	// log.info("Ingresando al metodo ");
-	////
-	//// PlaceMapper.InsertPlace(place);
-	//// typeMapper.InsertType(place);
-	// com.neko.entity.Place place= placeRepo.findByPlaceId("1");
-	//// List<Type> val = place.getTypes();
-	//// System.out.println("Auxilioooooo"+val.get(0).getTypecol());
-	// return placeDetails;
-	// }
+	 @ResponseBody
+	 @RequestMapping(value = "/rest/getplaces", method = RequestMethod.GET,
+	 headers = "Accept=application/json")
+	 public ResponseEntity<ResponseForPlaces> getPlaces() {
+	
+	 ResponseForPlaces responce = placeServiceApi.getPlaces("");
+	 if (responce.getResults() == null || responce.getResults().isEmpty()) {
+	 responce.setStatus("FAILD");
+	 return new ResponseEntity<ResponseForPlaces>(HttpStatus.NOT_FOUND);
+	 }
+	 responce.setStatus("OK");
+	 return new ResponseEntity<ResponseForPlaces>(responce, HttpStatus.OK);
+	 }
 
 }

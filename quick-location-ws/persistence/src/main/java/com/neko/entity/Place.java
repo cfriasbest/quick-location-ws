@@ -21,12 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  */
 @Entity
-@NamedQuery(name="Place.findAll", query="SELECT p FROM Place p")
+@NamedQuery(name = "Place.findAll", query = "SELECT p FROM Place p")
 public class Place implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="place_id")
+	@Column(name = "place_id")
 	private String placeId;
 
 	private float lat;
@@ -39,22 +39,22 @@ public class Place implements Serializable {
 
 	private String vicinty;
 
-	//bi-directional many-to-one association to Photo
+	// bi-directional many-to-one association to Photo
 	@Autowired
-	@OneToMany(cascade={CascadeType.ALL},mappedBy="place")
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "place")
 	private List<Photo> photos = new ArrayList<>();
 
-	//bi-directional one-to-one association to Placedetail
-	@OneToOne(mappedBy="place", fetch=FetchType.LAZY, cascade={CascadeType.ALL})
+	// bi-directional one-to-one association to Placedetail
+	@OneToOne(mappedBy = "place", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private Placedetail placedetail;
 
-	//bi-directional many-to-many association to Type
-	@ManyToMany(mappedBy="places", cascade={CascadeType.ALL})
-	private List<Type> types= new ArrayList<>();;
+	// bi-directional many-to-many association to Type
+	@ManyToMany(mappedBy = "places", cascade = { CascadeType.ALL })
+	private List<Type> types = new ArrayList<>();;
 
-	//bi-directional many-to-one association to Review
-	@OneToMany(mappedBy="place", cascade={CascadeType.ALL})
-	private List<Review> reviews= new ArrayList<>();;
+	// bi-directional many-to-one association to ReviewEntity
+	@OneToMany(mappedBy = "place", cascade = { CascadeType.ALL })
+	private List<ReviewEntity> reviews = new ArrayList<>();;
 
 	public Place() {
 	}
@@ -145,23 +145,23 @@ public class Place implements Serializable {
 		this.types = types;
 	}
 
-	public List<Review> getReviews() {
+	public List<ReviewEntity> getReviewEntitys() {
 		return this.reviews;
 	}
 
-	public void setReviews(List<Review> reviews) {
+	public void setReviewEntitys(List<ReviewEntity> reviews) {
 		this.reviews = reviews;
 	}
 
-	public Review addReview(Review review) {
-		getReviews().add(review);
+	public ReviewEntity addReviewEntity(ReviewEntity review) {
+		getReviewEntitys().add(review);
 		review.setPlace(this);
 
 		return review;
 	}
 
-	public Review removeReview(Review review) {
-		getReviews().remove(review);
+	public ReviewEntity removeReviewEntity(ReviewEntity review) {
+		getReviewEntitys().remove(review);
 		review.setPlace(null);
 
 		return review;

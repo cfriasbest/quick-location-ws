@@ -5,10 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import com.neko.entity.Photo;
 
+/**
+ * 
+ * @author cfriasb
+ *
+ */
 @Repository
-public interface PhotoRepo extends CrudRepository<Photo, String>
-{
+public interface PhotoRepo extends CrudRepository<Photo, String> {
 
 }
-
-

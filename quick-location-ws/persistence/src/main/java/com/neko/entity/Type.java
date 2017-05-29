@@ -1,16 +1,21 @@
 package com.neko.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 
 /**
  * The persistent class for the type database table.
  * 
  */
 @Entity
-@NamedQuery(name="Type.findAll", query="SELECT t FROM Type t")
+@NamedQuery(name = "Type.findAll", query = "SELECT t FROM Type t")
 public class Type implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,17 +24,10 @@ public class Type implements Serializable {
 
 	private String typecol;
 
-	//bi-directional many-to-many association to Place
+	// bi-directional many-to-many association to Place
 	@ManyToMany
-	@JoinTable(
-		name="place_has_type"
-		, joinColumns={
-			@JoinColumn(name="idType")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="place_id")
-			}
-		)
+	@JoinTable(name = "place_has_type", joinColumns = { @JoinColumn(name = "idType") }, inverseJoinColumns = {
+			@JoinColumn(name = "place_id") })
 	private List<Place> places;
 
 	public Type() {

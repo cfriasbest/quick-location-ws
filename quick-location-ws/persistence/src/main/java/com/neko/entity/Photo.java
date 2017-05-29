@@ -1,24 +1,29 @@
 package com.neko.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 /**
  * The persistent class for the photo database table.
  * 
  */
 @Entity
-@NamedQuery(name="Photo.findAll", query="SELECT p FROM Photo p")
+@NamedQuery(name = "Photo.findAll", query = "SELECT p FROM Photo p")
 public class Photo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String photoReference;
 
-	//bi-directional many-to-one association to Place
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="place_place_id")
+	// bi-directional many-to-one association to Place
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "place_place_id")
 	private Place place;
 
 	public Photo() {

@@ -5,12 +5,14 @@ import org.springframework.stereotype.Repository;
 
 import com.neko.entity.Placedetail;
 
+/**
+ * 
+ * @author cfriasb
+ *
+ */
 @Repository
-public interface PlaceDetailRepo extends CrudRepository<Placedetail, String>
-{
+public interface PlaceDetailRepo extends CrudRepository<Placedetail, String> {
 
 	public Placedetail findByPlacePlaceId(String id);
-	
+
 }
-
-
