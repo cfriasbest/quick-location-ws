@@ -30,6 +30,8 @@ public class ReviewService implements ReviewServiceApi {
 		reviewEntity.setPlace(place);
 		// reviewEntity.setProfilePhotoUrl(review.getProfilePhotoUrl());
 		reviewEntity.setText(review.getText());
+		// reviewEntity.setAuthorName(review.getAuthorName());
+		// reviewEntity.setAuthorName(review.getAuthorName());
 		reviewRepo.save(reviewEntity);
 	}
 
