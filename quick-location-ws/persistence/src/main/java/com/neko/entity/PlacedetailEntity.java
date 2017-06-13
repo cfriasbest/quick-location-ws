@@ -1,42 +1,37 @@
 package com.neko.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import org.dozer.Mapping;
+
 
 /**
  * The persistent class for the placedetails database table.
  * 
  */
 @Entity
-@Table(name = "placedetails")
-public class Placedetail implements Serializable {
+@Table(name="placedetails")
+@NamedQuery(name="PlacedetailEntity.findAll", query="SELECT p FROM PlacedetailEntity p")
+public class PlacedetailEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int place_Details_id;
-
+	
 	private String formattedAddress;
 
 	private String formattedPhoneNumber;
-
-	private String placedetailscol;
+	@Id
+	@Column(name="place_id")
+	private String placeId;
 
 	private String url;
 
 	private String website;
 
-	// bi-directional one-to-one association to Place
-	@OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-	@JoinColumn(name = "place_id")
-	private Place place;
-
-	public Placedetail() {
+	public PlacedetailEntity() {
 	}
 
 	public int getPlace_Details_id() {
@@ -63,12 +58,12 @@ public class Placedetail implements Serializable {
 		this.formattedPhoneNumber = formattedPhoneNumber;
 	}
 
-	public String getPlacedetailscol() {
-		return this.placedetailscol;
+	public String getPlaceId() {
+		return this.placeId;
 	}
 
-	public void setPlacedetailscol(String placedetailscol) {
-		this.placedetailscol = placedetailscol;
+	public void setPlaceId(String placeId) {
+		this.placeId = placeId;
 	}
 
 	public String getUrl() {
@@ -85,14 +80,6 @@ public class Placedetail implements Serializable {
 
 	public void setWebsite(String website) {
 		this.website = website;
-	}
-
-	public Place getPlace() {
-		return this.place;
-	}
-
-	public void setPlace(Place place) {
-		this.place = place;
 	}
 
 }
