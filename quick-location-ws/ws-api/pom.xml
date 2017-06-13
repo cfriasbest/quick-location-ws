@@ -1,14 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.neko</groupId>
-    <artifactId>quick-location-ws</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>ws-api</artifactId>
-  <packaging>war</packaging>
-  <dependencies>
-  	<dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.neko</groupId>
+		<artifactId>quick-location-ws</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>ws-api</artifactId>
+	<packaging>war</packaging>
+	<dependencies>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
@@ -34,18 +35,18 @@
 			<artifactId>services</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-  </dependencies>
-  
-<!--   <build> -->
-<!--     <plugins> -->
-<!--         <plugin> -->
-<!--             <groupId>org.apache.maven.plugins</groupId> -->
-<!--             <artifactId>maven-war-plugin</artifactId> -->
-<!--             <version>2.6</version> -->
-<!--             <configuration> -->
-<!--                 <failOnMissingWebXml>false</failOnMissingWebXml> -->
-<!--             </configuration> -->
-<!--         </plugin> -->
-<!--     </plugins> -->
-<!-- </build> -->
+	</dependencies>
+
+	<!-- <build> -->
+	<!-- <plugins> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.apache.maven.plugins</groupId> -->
+	<!-- <artifactId>maven-war-plugin</artifactId> -->
+	<!-- <version>2.6</version> -->
+	<!-- <configuration> -->
+	<!-- <failOnMissingWebXml>false</failOnMissingWebXml> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- </plugins> -->
+	<!-- </build> -->
 </project>

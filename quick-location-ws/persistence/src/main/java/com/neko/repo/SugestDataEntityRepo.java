@@ -3,14 +3,7 @@ package com.neko.repo;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.neko.entity.Photo;
+import com.neko.entity.SugestDataEntity;
 
-/**
- * 
- * @author cfriasb
- *
- */
 @Repository
-public interface PhotoRepo extends CrudRepository<Photo, String> {
-
-}
+public interface SugestDataEntityRepo extends CrudRepository<SugestDataEntity, Integer> {}

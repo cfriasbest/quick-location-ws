@@ -10,14 +10,9 @@ import com.neko.service.model.ResponseForPlaces;
  * @author cfriasb
  *
  */
-public interface PlaceServiceApi {
-
-	public ResponseForPlaceDetails getPlaceDetail(String placeId);
-
-	public void savePlace(Place place);
+public interface PlaceDetailsServiceApi {
 
 	public void savePlaceDetails(PlaceDetail placeDetail);
 
-	ResponseForPlaces getPlaces(String id);
 
 }

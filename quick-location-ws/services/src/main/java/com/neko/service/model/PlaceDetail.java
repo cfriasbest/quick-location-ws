@@ -2,6 +2,8 @@ package com.neko.service.model;
 
 import java.util.List;
 
+import org.dozer.Mapping;
+
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 import lombok.Getter;
@@ -19,10 +21,14 @@ import lombok.ToString;
 public class PlaceDetail extends Place {
 
 	private static final long serialVersionUID = 1L;
+	@Mapping("placedetail.formattedAddress")
 	private String formattedAddress;
+	@Mapping("placedetail.formattedPhoneNumber")
 	private String formattedPhoneNumber;
 	private OpeningHours openingHours;
+	@Mapping("placedetail.url")
 	private String url;
+	@Mapping("placedetail.website")
 	private String website;
 	private List<Photo> photos;
 	private List<Review> reviews;
