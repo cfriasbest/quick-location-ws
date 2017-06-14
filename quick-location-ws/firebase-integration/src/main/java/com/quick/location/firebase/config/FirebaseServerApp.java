@@ -13,6 +13,7 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseCredentials;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.quick.location.util.QuickLocationUtil;
 
 @Component
 public class FirebaseServerApp {
@@ -21,8 +22,8 @@ public class FirebaseServerApp {
 	public static void initializeFirebaseApp() throws IOException {
 		FirebaseOptions options = new FirebaseOptions.Builder()
 		        .setCredential(FirebaseCredentials.fromCertificate(
-		        		FirebaseServerApp.class.getResourceAsStream("/prueba-10d8bAdminSDK.json")))
-		        .setDatabaseUrl("https://prueba-10d8b.firebaseio.com").build();
+		        		FirebaseServerApp.class.getResourceAsStream(QuickLocationUtil.URL_FIREBASE_ADMIN_SDK)))
+		        .setDatabaseUrl(QuickLocationUtil.URL_FIREBASE_APP).build();
 		FirebaseApp.initializeApp(options);
 	}
 

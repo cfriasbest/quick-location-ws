@@ -63,7 +63,6 @@ public class PlaseService implements PlaceServiceApi {
 		ResponseForPlaceDetails placesR = new ResponseForPlaceDetails();
 		placesR.setResult(MapperUtil.mapBean(place, PlaceDetail.class));
 
-
 		return placesR;
 	}
 
