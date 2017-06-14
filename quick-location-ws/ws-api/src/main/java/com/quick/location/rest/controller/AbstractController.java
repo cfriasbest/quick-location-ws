@@ -1,4 +1,4 @@
-package com.neko.rest.controller;
+package com.quick.location.rest.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

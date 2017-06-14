@@ -1,18 +1,15 @@
-package com.neko.service.impl;
+package com.quick.location.service.impl;
 
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neko.entity.PlaceEntity;
-import com.neko.entity.PlacedetailEntity;
-import com.neko.repo.PlaceEntityRepo;
-import com.neko.repo.PlacedetailEntityRepo;
-import com.neko.service.PlaceDetailsServiceApi;
-import com.neko.service.model.PlaceDetail;
-import com.neko.service.model.ResponseForPlaceDetails;
-import com.neko.service.util.MapperUtil;
+import com.quick.location.entity.PlaceEntity;
+import com.quick.location.model.PlaceDetail;
+import com.quick.location.repo.PlaceEntityRepo;
+import com.quick.location.repo.PlacedetailEntityRepo;
+import com.quick.location.service.PlaceDetailsServiceApi;
 
 /**
  * 
@@ -52,8 +49,8 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 	// public ResponseForPlaces getPlaces(String id) {
 	// ResponseForPlaces responseForPlaces = new ResponseForPlaces();
 	// responseForPlaces.setResults(new ArrayList<Place>());
-	// Iterable<com.neko.entity.PlaceEntity> places = placeRepo.findAll();
-	// for (com.neko.entity.PlaceEntity place : places)
+	// Iterable<com.quick.location.entity.PlaceEntity> places = placeRepo.findAll();
+	// for (com.quick.location.entity.PlaceEntity place : places)
 	// responseForPlaces.getResults().add(toPlaceModel(place));
 	// return responseForPlaces;
 	// }
@@ -70,7 +67,7 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 	//
 	// }
 	//
-	// private Place toPlaceModel(com.neko.entity.PlaceEntity place) {
+	// private Place toPlaceModel(com.quick.location.entity.PlaceEntity place) {
 	// Place placeModel = new Place();
 	// Geometry geometry = new Geometry();
 	// Location location = new Location();
@@ -88,7 +85,7 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 	// @Transactional(propagation = Propagation.REQUIRED)
 	// public void savePlaceDetails(PlaceDetail placeDetailModel) {
 	//
-	// com.neko.entity.PlaceEntity placeEntity =
+	// com.quick.location.entity.PlaceEntity placeEntity =
 	// toPlaceEntity(placeDetailModel);
 	// PlacedetailEntity placeDetailEntity =
 	// toPlaceDetailsEntity(placeDetailModel);
@@ -111,9 +108,9 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 	// return placeDetailEntity;
 	// }
 	//
-	// private com.neko.entity.PlaceEntity toPlaceEntity(Place placeModel) {
-	// com.neko.entity.PlaceEntity placeEntity = new
-	// com.neko.entity.PlaceEntity();
+	// private com.quick.location.entity.PlaceEntity toPlaceEntity(Place placeModel) {
+	// com.quick.location.entity.PlaceEntity placeEntity = new
+	// com.quick.location.entity.PlaceEntity();
 	// placeEntity.setLat(placeModel.getGeometry().getLocation().getLat());
 	// placeEntity.setLng(placeModel.getGeometry().getLocation().getLng());
 	// placeEntity.setName(placeModel.getName());
@@ -123,18 +120,18 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 	//
 	// }
 	//
-	// private void toPhotoEntity(com.neko.entity.PlaceEntity place,
-	// List<com.neko.service.model.Photo> list) {
-	// for (com.neko.service.model.Photo photoModel : list) {
+	// private void toPhotoEntity(com.quick.location.entity.PlaceEntity place,
+	// List<com.quick.location.service.model.Photo> list) {
+	// for (com.quick.location.service.model.Photo photoModel : list) {
 	// PhotoEntity PhotoEntity = new PhotoEntity();
 	// PhotoEntity.setPhotoReference(photoModel.getPhotoReference());
 	// place.addPhoto(PhotoEntity);
 	// }
 	// }
 	//
-	// private void toReviewEntity(List<com.neko.service.model.Review>
-	// seviewModels, com.neko.entity.PlaceEntity placeEntity) {
-	// for (com.neko.service.model.Review seviewModel : seviewModels) {
+	// private void toReviewEntity(List<com.quick.location.service.model.Review>
+	// seviewModels, com.quick.location.entity.PlaceEntity placeEntity) {
+	// for (com.quick.location.service.model.Review seviewModel : seviewModels) {
 	// ReviewEntity review = new ReviewEntity();
 	// review.setAuthorName(seviewModel.getAuthorName());
 	// // review.setAuthorUrl(seviewModel.getAuthorName());

@@ -1,10 +1,8 @@
-package com.neko.service;
+package com.quick.location.service;
 
-import java.util.List;
-
-import com.neko.service.model.Place;
-import com.neko.service.model.ResponseForPlaceDetails;
-import com.neko.service.model.ResponseForPlaces;
+import com.quick.location.model.Place;
+import com.quick.location.model.ResponseForPlaceDetails;
+import com.quick.location.model.ResponseForPlaces;
 
 public interface PlaceServiceApi {
 	

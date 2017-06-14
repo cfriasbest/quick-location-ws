@@ -1,4 +1,4 @@
-package com.neko.rest.controller;
+package com.quick.location.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.neko.service.PlaceDetailsServiceApi;
-import com.neko.service.PlaceServiceApi;
-import com.neko.service.model.Place;
-import com.neko.service.model.ResponseForPlaceDetails;
-import com.neko.service.model.ResponseForPlaces;
+import com.quick.location.model.Place;
+import com.quick.location.model.ResponseForPlaceDetails;
+import com.quick.location.model.ResponseForPlaces;
+import com.quick.location.service.PlaceDetailsServiceApi;
+import com.quick.location.service.PlaceServiceApi;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,14 +52,15 @@ public class WsApiController extends AbstractController {
 
 	@ResponseBody
 	@RequestMapping(value = "/rest/save", method = RequestMethod.POST, headers = "Accept=application/json")
-	public Object savePlacesDetails(@RequestBody ResponseForPlaceDetails placeDetails) {
+	public ResponseEntity<String> savePlacesDetails(@RequestBody ResponseForPlaceDetails placeDetails) {
 		log.info("Ingresando al metodo savePlacesDetails");
 		log.info(" Se almacenara el la siguiente Trama" + placeDetails.toString());
 
 		placeDetailsServiceApi.savePlaceDetails(placeDetails.getResult());
 
 		log.info("Saliendo al metodo savePlacesDetails");
-		return placeDetails;
+		
+		return  new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@ResponseBody

@@ -1,4 +1,4 @@
-package com.neko.service.util;
+package com.quick.location.service.util;
 
 import java.util.ArrayList;
 import java.util.List;
