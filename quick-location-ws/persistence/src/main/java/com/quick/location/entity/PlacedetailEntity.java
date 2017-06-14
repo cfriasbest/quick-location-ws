@@ -1,9 +1,14 @@
-package com.neko.entity;
+package com.quick.location.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
-import org.dozer.Mapping;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**

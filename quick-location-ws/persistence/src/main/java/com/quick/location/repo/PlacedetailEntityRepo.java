@@ -1,9 +1,9 @@
-package com.neko.repo;
+package com.quick.location.repo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.neko.entity.PlacedetailEntity;
+import com.quick.location.entity.PlacedetailEntity;
 
 @Repository
 public interface PlacedetailEntityRepo extends CrudRepository<PlacedetailEntity, Integer> {

@@ -1,12 +1,11 @@
-package com.neko.repo;
+package com.quick.location.repo;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.neko.entity.PhotoEntity;
-import com.neko.entity.PlaceEntity;
+import com.quick.location.entity.PhotoEntity;
 
 @Repository
 public interface PhotoEntityRepo extends CrudRepository<PhotoEntity, String > {

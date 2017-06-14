@@ -1,4 +1,4 @@
-package com.neko.service.model;
+package com.quick.location.model;
 
 import java.io.Serializable;
 import java.util.List;

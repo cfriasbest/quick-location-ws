@@ -1,10 +1,11 @@
-package com.neko.service.model;
+package com.quick.location.model;
 
 import java.util.List;
 
 import org.dozer.Mapping;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@IgnoreExtraProperties
 public class PlaceDetail extends Place {
 
 	private static final long serialVersionUID = 1L;

@@ -1,9 +1,7 @@
-package com.neko.service.model;
+package com.quick.location.model;
 
 import java.io.Serializable;
 import java.util.List;
-
-import org.dozer.Mapping;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
