@@ -31,7 +31,7 @@
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
-		<property name="packagesToScan" value="com.neko.entity" />
+		<property name="packagesToScan" value="com.quick.location.entity" />
 		<property name="jpaProperties">
 			<props>
 				<!-- Configures the used database dialect. This allows Hibernate to create 
@@ -64,6 +64,6 @@
 	</bean>
 
 
-	<jpa:repositories base-package="com.neko.repo" />
+	<jpa:repositories base-package="com.quick.location.repo" />
 
 </beans>
