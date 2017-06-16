@@ -33,7 +33,6 @@ public class WsApiController extends AbstractController {
 	@Autowired
 	PlaceServiceApi placeServiceApi;
 
-
 	@ResponseBody
 	@RequestMapping(value = "/rest/save", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<String> savePlacesDetails(
@@ -64,21 +63,6 @@ public class WsApiController extends AbstractController {
 	@ResponseBody
 	@RequestMapping(value = "/rest/getplacedetail/{placeId}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<ResponseForPlaceDetails> getPlaceDetail(
-	        @PathVariable("placeId") String placeId) {
-
-		ResponseForPlaceDetails responce = placeServiceApi.getPlaceDetail(placeId);
-		if (responce.getResult() == null) {
-			responce.setStatus("FAILD");
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		responce.setStatus("OK");
-		return new ResponseEntity<>(responce, HttpStatus.OK);
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/rest/getplacedetail/{placeId}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<ResponseForPlaceDetails> addReview(
 	        @PathVariable("placeId") String placeId) {
 
 		ResponseForPlaceDetails responce = placeServiceApi.getPlaceDetail(placeId);
