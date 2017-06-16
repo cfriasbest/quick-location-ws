@@ -33,7 +33,6 @@ public class WsApiController extends AbstractController {
 	@Autowired
 	PlaceServiceApi placeServiceApi;
 
-
 	@ResponseBody
 	@RequestMapping(value = "/rest/save", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<String> savePlacesDetails(
