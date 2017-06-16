@@ -6,5 +6,7 @@
 
 	<import resource="classpath*:/servicios-context.xml" />
 	<import resource="classpath*:/spring-data-config.xml" />
+	
+	<import resource="classpath*:/firebase-context.xml" />
 
 </beans>
