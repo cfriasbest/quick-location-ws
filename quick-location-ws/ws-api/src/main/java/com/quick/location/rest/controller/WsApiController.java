@@ -74,5 +74,20 @@ public class WsApiController extends AbstractController {
 		responce.setStatus("OK");
 		return new ResponseEntity<>(responce, HttpStatus.OK);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/rest/getplacedetail/{placeId}", method = RequestMethod.GET, headers = "Accept=application/json")
+	public ResponseEntity<ResponseForPlaceDetails> addReview(
+	        @PathVariable("placeId") String placeId) {
+
+		ResponseForPlaceDetails responce = placeServiceApi.getPlaceDetail(placeId);
+		if (responce.getResult() == null) {
+			responce.setStatus("FAILD");
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		responce.setStatus("OK");
+		return new ResponseEntity<>(responce, HttpStatus.OK);
+	}
 
 }
