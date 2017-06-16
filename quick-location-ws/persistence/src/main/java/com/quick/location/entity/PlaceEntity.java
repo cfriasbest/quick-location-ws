@@ -54,8 +54,8 @@ public class PlaceEntity implements Serializable {
 	private List<ReviewEntity> reviews;
 
 	// bi-directional many-to-one association to SugestDataEntity
-	@OneToMany(mappedBy = "place")
-	private List<SugestDataEntity> sugestData;
+	// @OneToMany(mappedBy = "place")
+	// private List<SugestDataEntity> sugestData;
 
 	public PlaceEntity() {
 	}
@@ -176,26 +176,26 @@ public class PlaceEntity implements Serializable {
 	 return review;
 	 }
 
-	public List<SugestDataEntity> getSugestData() {
-		return this.sugestData;
-	}
+	// public List<SugestDataEntity> getSugestData() {
+	// return this.sugestData;
+	// }
+	//
+	// public void setSugestData(List<SugestDataEntity> sugestData) {
+	// this.sugestData = sugestData;
+	// }
 
-	public void setSugestData(List<SugestDataEntity> sugestData) {
-		this.sugestData = sugestData;
-	}
-
-	public SugestDataEntity addSugestData(SugestDataEntity sugestData) {
-		getSugestData().add(sugestData);
-		sugestData.setPlace(this);
-
-		return sugestData;
-	}
-
-	public SugestDataEntity removeSugestData(SugestDataEntity sugestData) {
-		getSugestData().remove(sugestData);
-		sugestData.setPlace(null);
-
-		return sugestData;
-	}
+	// public SugestDataEntity addSugestData(SugestDataEntity sugestData) {
+	// getSugestData().add(sugestData);
+	// sugestData.setPlace(this);
+	//
+	// return sugestData;
+	// }
+	//
+	// public SugestDataEntity removeSugestData(SugestDataEntity sugestData) {
+	// getSugestData().remove(sugestData);
+	// sugestData.setPlace(null);
+	//
+	// return sugestData;
+	// }
 
 }

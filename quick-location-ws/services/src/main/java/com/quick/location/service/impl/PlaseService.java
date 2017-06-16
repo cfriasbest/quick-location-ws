@@ -28,7 +28,7 @@ public class PlaseService implements PlaceServiceApi {
 
 	@Autowired
 	FirebaseServerApp firebaseServerApp;
-
+	
 	@Override
 	public Place getPlace(Place place) {
 		PlaceEntity placeEntity = MapperUtil.mapBean(place, PlaceEntity.class);

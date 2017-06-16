@@ -11,5 +11,4 @@ public interface PlaceDetailsServiceApi {
 
 	public void savePlaceDetails(PlaceDetail placeDetail);
 
-
 }

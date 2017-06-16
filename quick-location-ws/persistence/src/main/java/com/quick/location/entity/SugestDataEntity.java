@@ -1,15 +1,9 @@
 package com.quick.location.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import lombok.ToString;
 
 
 /**
@@ -19,16 +13,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name="sugest_data")
 @NamedQuery(name="SugestDataEntity.findAll", query="SELECT s FROM SugestDataEntity s")
+@ToString
 public class SugestDataEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idSugest_Data;
+	@Column(name="id_Sugest_Data")
+	private String idSugestData;
 
 	private String direction;
 
 	private String phone;
+
+	@Column(name="place_id")
+	private String placeId;
 
 	private String schedule;
 
@@ -36,20 +34,15 @@ public class SugestDataEntity implements Serializable {
 
 	private String user;
 
-	//bi-directional many-to-one association to PlaceEntity
-	@ManyToOne
-	@JoinColumn(name="place_id")
-	private PlaceEntity place;
-
 	public SugestDataEntity() {
 	}
 
-	public int getIdSugest_Data() {
-		return this.idSugest_Data;
+	public String getIdSugestData() {
+		return this.idSugestData;
 	}
 
-	public void setIdSugest_Data(int idSugest_Data) {
-		this.idSugest_Data = idSugest_Data;
+	public void setIdSugestData(String idSugestData) {
+		this.idSugestData = idSugestData;
 	}
 
 	public String getDirection() {
@@ -66,6 +59,14 @@ public class SugestDataEntity implements Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getPlaceId() {
+		return this.placeId;
+	}
+
+	public void setPlaceId(String placeId) {
+		this.placeId = placeId;
 	}
 
 	public String getSchedule() {
@@ -90,14 +91,6 @@ public class SugestDataEntity implements Serializable {
 
 	public void setUser(String user) {
 		this.user = user;
-	}
-
-	public PlaceEntity getPlace() {
-		return this.place;
-	}
-
-	public void setPlace(PlaceEntity place) {
-		this.place = place;
 	}
 
 }
