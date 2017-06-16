@@ -99,6 +99,8 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 				sugestDataEntityRepo.save(MapperUtil.mapBean(sugerencia, SugestDataEntity.class));
 				log.info("Se cambio el elemendo ");
 
+				pruebaActualizacion(sugerencia);
+
 			}
 
 			public void onChildRemoved(DataSnapshot dataSnapshot) {
@@ -136,6 +138,11 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 
 		log.info("Se  Actualizo los datos ");
 
+	}
+
+	private void pruebaActualizacion(SugestData sugestData) {
+		List<?> test = sugestDataEntityRepo.findByPlaceId(sugestData.getPlaceId());
+		updatePlaceDetails(sugestData);
 	}
 
 }
