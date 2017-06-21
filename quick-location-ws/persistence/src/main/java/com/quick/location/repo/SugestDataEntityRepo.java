@@ -10,5 +10,5 @@ import com.quick.location.entity.SugestDataEntity;
 @Repository
 public interface SugestDataEntityRepo extends CrudRepository<SugestDataEntity, String> {
 
-	public List<SugestDataEntity> findByPlaceId(String placeId);
+//	public List<SugestDataEntity> findByPlaceId(String placeId);
 }

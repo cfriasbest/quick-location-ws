@@ -3,14 +3,11 @@ package com.quick.location.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.dozer.Mapping;
@@ -29,6 +26,10 @@ public class PlaceEntity implements Serializable {
 	@Column(name = "place_id")
 	private String placeId;
 
+	private String formattedAddress;
+
+	private String formattedPhoneNumber;
+
 	@Mapping("geometry.location.lat")
 	private float lat;
 	@Mapping("geometry.location.lng")
@@ -40,21 +41,12 @@ public class PlaceEntity implements Serializable {
 
 	private String vicinty;
 
-	// bi-directional many-to-one association to PhotoEntity
-	@OneToMany(mappedBy = "place", cascade = { CascadeType.ALL })
-	private List<PhotoEntity> photos;
-
-	// uni-directional one-to-one association to PlacedetailEntity
-	@OneToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "place_id", referencedColumnName = "place_id")
-	private PlacedetailEntity placedetail;
-
 	// bi-directional many-to-one association to ReviewEntity
-	@OneToMany(mappedBy = "place", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "place")
 	private List<ReviewEntity> reviews;
 
 	// bi-directional many-to-one association to SugestDataEntity
-	// @OneToMany(mappedBy = "place")
+	// @OneToMany(mappedBy="place")
 	// private List<SugestDataEntity> sugestData;
 
 	public PlaceEntity() {
@@ -66,6 +58,22 @@ public class PlaceEntity implements Serializable {
 
 	public void setPlaceId(String placeId) {
 		this.placeId = placeId;
+	}
+
+	public String getFormattedAddress() {
+		return this.formattedAddress;
+	}
+
+	public void setFormattedAddress(String formattedAddress) {
+		this.formattedAddress = formattedAddress;
+	}
+
+	public String getFormattedPhoneNumber() {
+		return this.formattedPhoneNumber;
+	}
+
+	public void setFormattedPhoneNumber(String formattedPhoneNumber) {
+		this.formattedPhoneNumber = formattedPhoneNumber;
 	}
 
 	public float getLat() {
@@ -108,73 +116,43 @@ public class PlaceEntity implements Serializable {
 		this.vicinty = vicinty;
 	}
 
-	public List<PhotoEntity> getPhotos() {
-		return this.photos;
+	public List<ReviewEntity> getReviews() {
+		return this.reviews;
 	}
 
-	public void setPhotos(List<PhotoEntity> photos) {
-		this.photos = photos;
+	public void setReviews(List<ReviewEntity> reviews) {
+		this.reviews = reviews;
 	}
 
-	public PhotoEntity addPhoto(PhotoEntity photo) {
-		getPhotos().add(photo);
-		photo.setPlace(this);
+	public ReviewEntity addReview(ReviewEntity review) {
+		getReviews().add(review);
+		review.setPlace(this);
 
-		return photo;
+		return review;
 	}
 
-	public void autoSetThis()
-	{
-		for (PhotoEntity photoentity : this.photos )
-		{
-			photoentity.setPlace(this);
-		}
-		
-		for (ReviewEntity reviewEntity : this.reviews )
-		{
-			reviewEntity.setPlace(this);
-		}
-		
-		placedetail.setPlaceId(this.placeId);
+	public void autoSetThis() {
+		// for (PhotoEntity photoentity : this.photos )
+		// {
+		// photoentity.setPlace(this);
+		// }
+
+		// if (!this.reviews.isEmpty()) {
+		// for (ReviewEntity reviewEntity : this.reviews) {
+		// reviewEntity.setPlace(this);
+		// }
+		// }
+		//
+		// placedetail.setPlaceId(this.placeId);
 
 	}
-	
-	public PhotoEntity removePhoto(PhotoEntity photo) {
-		getPhotos().remove(photo);
-		photo.setPlace(null);
 
-		return photo;
+	public ReviewEntity removeReview(ReviewEntity review) {
+		getReviews().remove(review);
+		review.setPlace(null);
+
+		return review;
 	}
-
-	public PlacedetailEntity getPlacedetail() {
-		return this.placedetail;
-	}
-
-	public void setPlacedetail(PlacedetailEntity placedetail) {
-		this.placedetail = placedetail;
-	}
-
-	 public List<ReviewEntity> getReviews() {
-	 return this.reviews;
-	 }
-	
-	 public void setReviews(List<ReviewEntity> reviews) {
-	 this.reviews = reviews;
-	 }
-	
-	 public ReviewEntity addReview(ReviewEntity review) {
-	 getReviews().add(review);
-	 review.setPlace(this);
-	
-	 return review;
-	 }
-	
-	 public ReviewEntity removeReview(ReviewEntity review) {
-	 getReviews().remove(review);
-	 review.setPlace(null);
-	
-	 return review;
-	 }
 
 	// public List<SugestDataEntity> getSugestData() {
 	// return this.sugestData;
