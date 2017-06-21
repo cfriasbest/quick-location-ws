@@ -1,11 +1,9 @@
 package com.quick.location.model;
 
-import java.util.List;
-
-import org.dozer.Mapping;
-
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +26,6 @@ public class PlaceDetail extends Place {
 	private OpeningHours openingHours;
 	private String url;
 	private String website;
-	private List<Photo> photos;
 	private List<Review> reviews;
 
 	@JsonSetter("formatted_address")

@@ -12,12 +12,18 @@ import com.quick.location.model.PlaceDetailFirebase;
 import com.quick.location.model.ReviewFirebase;
 import com.quick.location.util.QuickLocationUtil;
 
+/**
+ * @author cfrias
+ */
 @Service
 public class FirebasePlaceService {
 
     @Autowired
     FirebaseServerApp firebaseServerApp;
 
+    /**
+     * @param placesFirebaseDetail
+     */
     public void setPlaceListOnFirebase(List<PlaceDetailFirebase> placesFirebaseDetail) {
         HashMap<String, Object> placestoFirebase = new HashMap<>();
         for (PlaceDetailFirebase placeDetail : placesFirebaseDetail) {
@@ -29,11 +35,18 @@ public class FirebasePlaceService {
             "data", placestoFirebase);
     }
 
+    /**
+     * @param url
+     * @return
+     */
     public DatabaseReference getDatabaseReference(String url) {
 
         return FirebaseDatabase.getInstance().getReference(url);
     }
 
+    /**
+     * @param reviewsFirebaseDetail
+     */
     public void setReviewsListOnFirebase(List<ReviewFirebase> reviewsFirebaseDetail) {
 
         for (ReviewFirebase reviewDetail : reviewsFirebaseDetail) {

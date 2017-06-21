@@ -18,46 +18,50 @@ import com.quick.location.util.QuickLocationUtil;
 @Component
 public class FirebaseServerApp {
 
-	@PostConstruct
-	public static void initializeFirebaseApp() throws IOException {
-		FirebaseOptions options = new FirebaseOptions.Builder()
-		        .setCredential(FirebaseCredentials.fromCertificate(
-		        		FirebaseServerApp.class.getResourceAsStream(QuickLocationUtil.URL_FIREBASE_ADMIN_SDK)))
-		        .setDatabaseUrl(QuickLocationUtil.URL_FIREBASE_APP).build();
-		FirebaseApp.initializeApp(options);
-	}
+    /**
+     * @throws IOException
+     */
+    @PostConstruct
+    public static void initializeFirebaseApp() throws IOException {
+        FirebaseOptions options = new FirebaseOptions.Builder()
+            .setCredential(FirebaseCredentials.fromCertificate(
+                FirebaseServerApp.class
+                    .getResourceAsStream(QuickLocationUtil.URL_FIREBASE_ADMIN_SDK)))
+            .setDatabaseUrl(QuickLocationUtil.URL_FIREBASE_APP).build();
+        FirebaseApp.initializeApp(options);
+    }
 
-	public  DatabaseReference getDatabaseReference(String url) {
-	
-		return FirebaseDatabase.getInstance().getReference(url);
-	}
-	
-	public  void newChild(String url,String urlChild,String id,Object objectData)
-	{
-		DatabaseReference ref = getDatabaseReference(url);
-		DatabaseReference dataRef = ref.child(urlChild);
-		Map<String, Object> data = new HashMap<>();
-		data.put(id, objectData);
-		
-		dataRef.push().setValue(data);
-	}
-	
-	
-	public  void newChild(String url,String urlChild,Map<String, Object> data)
-	{
-		DatabaseReference ref = getDatabaseReference(url);
-		DatabaseReference dataRef = ref.child(urlChild);
-		
-		dataRef.setValue(data);
-	}
-	
-	public  void newPushChild(String url,String urlChild,Map<String, Object> data)
-	{
-		DatabaseReference ref = getDatabaseReference(url);
-		DatabaseReference dataRef = ref.child(urlChild);
-		
-		dataRef.push().setValue(data);
-	}
-	
-	//TODO: Crear metodo para hacer push con url o con un enum
+    /**
+     * @param url
+     * @return
+     */
+    public DatabaseReference getDatabaseReference(String url) {
+
+        return FirebaseDatabase.getInstance().getReference(url);
+    }
+
+    public void newChild(String url, String urlChild, String id, Object objectData) {
+        DatabaseReference ref = getDatabaseReference(url);
+        DatabaseReference dataRef = ref.child(urlChild);
+        Map<String, Object> data = new HashMap<>();
+        data.put(id, objectData);
+
+        dataRef.push().setValue(data);
+    }
+
+    public void newChild(String url, String urlChild, Map<String, Object> data) {
+        DatabaseReference ref = getDatabaseReference(url);
+        DatabaseReference dataRef = ref.child(urlChild);
+
+        dataRef.setValue(data);
+    }
+
+    public void newPushChild(String url, String urlChild, Map<String, Object> data) {
+        DatabaseReference ref = getDatabaseReference(url);
+        DatabaseReference dataRef = ref.child(urlChild);
+
+        dataRef.push().setValue(data);
+    }
+
+    // TODO: Crear metodo para hacer push con url o con un enum
 }
