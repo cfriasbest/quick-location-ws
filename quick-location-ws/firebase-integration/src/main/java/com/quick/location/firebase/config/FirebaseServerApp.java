@@ -51,5 +51,13 @@ public class FirebaseServerApp {
 		dataRef.setValue(data);
 	}
 	
+	public  void newPushChild(String url,String urlChild,Map<String, Object> data)
+	{
+		DatabaseReference ref = getDatabaseReference(url);
+		DatabaseReference dataRef = ref.child(urlChild);
+		
+		dataRef.push().setValue(data);
+	}
 	
+	//TODO: Crear metodo para hacer push con url o con un enum
 }

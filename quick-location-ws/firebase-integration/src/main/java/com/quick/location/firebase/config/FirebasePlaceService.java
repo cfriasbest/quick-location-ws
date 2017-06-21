@@ -8,10 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.quick.location.model.PlaceDetail;
 import com.quick.location.model.PlaceDetailFirebase;
+import com.quick.location.model.ReviewFirebase;
 import com.quick.location.util.QuickLocationUtil;
-
 
 @Service
 public class FirebasePlaceService {
@@ -24,12 +23,28 @@ public class FirebasePlaceService {
 		for (PlaceDetailFirebase placeDetail : placesFirebaseDetail) {
 			placestoFirebase.put(placeDetail.getPlaceId(), placeDetail);
 		}
-		firebaseServerApp.newChild(QuickLocationUtil.URL_FIREBASE_DATABASE+QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES,
+		firebaseServerApp.newChild(
+		        QuickLocationUtil.URL_FIREBASE_DATABASE
+		                + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES,
 		        "data", placestoFirebase);
 	}
-	
-	public  DatabaseReference getDatabaseReference(String url) {
-		
+
+	public DatabaseReference getDatabaseReference(String url) {
+
 		return FirebaseDatabase.getInstance().getReference(url);
+	}
+
+	public void setReviewsListOnFirebase(List<ReviewFirebase> reviewsFirebaseDetail) {
+		{
+			HashMap<String, Object> placestoFirebase = new HashMap<>();
+			for (ReviewFirebase reviewDetail : reviewsFirebaseDetail) {
+				DatabaseReference ref = firebaseServerApp
+				        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE
+				                + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES + "/review");
+				ref.child(reviewDetail.getPlaceId()).push().setValue(reviewDetail);
+
+			}
+
+		}
 	}
 }

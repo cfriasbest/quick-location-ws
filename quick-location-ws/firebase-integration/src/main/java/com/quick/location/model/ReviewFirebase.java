@@ -1,8 +1,8 @@
 package com.quick.location.model;
 
-import java.io.Serializable;
+import org.dozer.Mapping;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.google.firebase.database.Exclude;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,33 +16,21 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class ReviewFirebase implements Serializable{
+public class ReviewFirebase {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7768252548404151432L;
-	private Object[] aspects;
 	private String authorName;
-	private String authorUrl;
-	private String language;
-	private String profilePhotoUrl;
 	private Double rating;
 	private String text;
+	@Mapping("place.placeId")
+	private String placeId;
 
-	@JsonSetter("author_name")
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
+	@Exclude
+	public String getPlaceId() {
+		return placeId;
 	}
 
-	@JsonSetter("author_url")
-	public void setAuthorUrl(String authorUrl) {
-		this.authorUrl = authorUrl;
-	}
-
-	@JsonSetter("profile_photo_url")
-	public void setProfilePhotoUrl(String profilePhotoUrl) {
-		this.profilePhotoUrl = profilePhotoUrl;
+	public void setPlaceId(String placeId) {
+		this.placeId = placeId;
 	}
 
 }
