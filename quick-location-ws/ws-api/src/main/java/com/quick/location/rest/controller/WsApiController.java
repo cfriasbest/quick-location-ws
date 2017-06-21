@@ -19,60 +19,60 @@ import com.quick.location.service.PlaceServiceApi;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
  * @author cfriasb
- *
  */
 @RestController
 @Slf4j
 public class WsApiController extends AbstractController {
 
-	@Autowired
-	PlaceDetailsServiceApi placeDetailsServiceApi;
+    @Autowired
+    PlaceDetailsServiceApi placeDetailsServiceApi;
 
-	@Autowired
-	PlaceServiceApi placeServiceApi;
+    @Autowired
+    PlaceServiceApi placeServiceApi;
 
+    @ResponseBody
+    @RequestMapping(value = "/rest/save", method = RequestMethod.POST,
+        headers = "Accept=application/json")
+    public ResponseEntity<String> savePlacesDetails(
+        @RequestBody ResponseForPlaceDetails placeDetails) {
+        log.info("Ingresando al metodo savePlacesDetails");
+        log.info(" Se almacenara el la siguiente Trama" + placeDetails.toString());
 
-	@ResponseBody
-	@RequestMapping(value = "/rest/save", method = RequestMethod.POST, headers = "Accept=application/json")
-	public ResponseEntity<String> savePlacesDetails(
-	        @RequestBody ResponseForPlaceDetails placeDetails) {
-		log.info("Ingresando al metodo savePlacesDetails");
-		log.info(" Se almacenara el la siguiente Trama" + placeDetails.toString());
+        placeDetailsServiceApi.savePlaceDetails(placeDetails.getResult());
 
-		placeDetailsServiceApi.savePlaceDetails(placeDetails.getResult());
+        log.info("Saliendo al metodo savePlacesDetails");
 
-		log.info("Saliendo al metodo savePlacesDetails");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+    @ResponseBody
+    @RequestMapping(value = "/rest/getplaces", method = RequestMethod.GET,
+        headers = "Accept=application/json")
+    public ResponseEntity<ResponseForPlaces> getPlaces() {
 
-	@ResponseBody
-	@RequestMapping(value = "/rest/getplaces", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<ResponseForPlaces> getPlaces() {
+        ResponseForPlaces responce = placeServiceApi.getPlaces(new Place());
+        if (responce.getResults() == null || responce.getResults().isEmpty()) {
+            responce.setStatus("FAILD");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        responce.setStatus("OK");
+        return new ResponseEntity<>(responce, HttpStatus.OK);
+    }
 
-		ResponseForPlaces responce = placeServiceApi.getPlaces(new Place());
-		if (responce.getResults() == null || responce.getResults().isEmpty()) {
-			responce.setStatus("FAILD");
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		responce.setStatus("OK");
-		return new ResponseEntity<>(responce, HttpStatus.OK);
-	}
+    @ResponseBody
+    @RequestMapping(value = "/rest/getplacedetail/{placeId}", method = RequestMethod.GET,
+        headers = "Accept=application/json")
+    public ResponseEntity<ResponseForPlaceDetails> getPlaceDetail(
+        @PathVariable("placeId") String placeId) {
 
-	@ResponseBody
-	@RequestMapping(value = "/rest/getplacedetail/{placeId}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<ResponseForPlaceDetails> getPlaceDetail(
-	        @PathVariable("placeId") String placeId) {
-
-		ResponseForPlaceDetails responce = placeServiceApi.getPlaceDetail(placeId);
-		if (responce.getResult() == null) {
-			responce.setStatus("FAILD");
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		responce.setStatus("OK");
-		return new ResponseEntity<>(responce, HttpStatus.OK);
-	}
+        ResponseForPlaceDetails responce = placeServiceApi.getPlaceDetail(placeId);
+        if (responce.getResult() == null) {
+            responce.setStatus("FAILD");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        responce.setStatus("OK");
+        return new ResponseEntity<>(responce, HttpStatus.OK);
+    }
 
 }

@@ -6,30 +6,27 @@ import java.util.List;
 import org.dozer.DozerBeanMapper;
 
 public class MapperUtil {
-	
-	static DozerBeanMapper mapper = new DozerBeanMapper();
 
-	private MapperUtil() {
-		throw new IllegalAccessError("MapperUtil class");
-	}
+    static DozerBeanMapper mapper = new DozerBeanMapper();
 
-	public static <T, U> List<U> mapAsList(final List<T> source, final Class<U> destType) {
+    private MapperUtil() {
+        throw new IllegalAccessError("MapperUtil class");
+    }
 
-		
-		final List<U> dest = new ArrayList<>();
+    public static <T, U> List<U> mapAsList(final List<T> source, final Class<U> destType) {
 
-		for (T element : source) {
-			dest.add(mapper.map(element, destType));
-		}
+        final List<U> dest = new ArrayList<>();
 
-		return dest;
-	}
+        for (T element : source) {
+            dest.add(mapper.map(element, destType));
+        }
 
-	public static <T, U> U mapBean(final T source, final Class<U> destType) {
+        return dest;
+    }
 
-		
+    public static <T, U> U mapBean(final T source, final Class<U> destType) {
 
-		return mapper.map(source, destType);
-	}
+        return mapper.map(source, destType);
+    }
 
 }

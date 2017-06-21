@@ -29,26 +29,6 @@ public class PlaseService implements PlaceServiceApi {
 	@Autowired
 	FirebaseServerApp firebaseServerApp;
 
-	// @Override
-	// public Place getPlace(Place place) {
-	// PlaceEntity placeEntity = MapperUtil.mapBean(place, PlaceEntity.class);
-	// return
-	// MapperUtil.mapBean(placeEntityRepo.findOne(placeEntity.getPlaceId()),
-	// Place.class);
-	// }
-
-	// @Override
-	// public Place savePlace(Place place) {
-	// PlaceEntity placeEntity = MapperUtil.mapBean(place, PlaceEntity.class);
-	// return MapperUtil.mapBean(placeEntityRepo.save(placeEntity),
-	// Place.class);
-	// }
-
-	// @Override
-	// public Place upadatePlace(Place place) {
-	// return savePlace(place);
-	// }
-
 	@Override
 	public ResponseForPlaces getPlaces(Place place) {
 		List<PlaceEntity> places = (List<PlaceEntity>) placeEntityRepo.findAll();

@@ -15,36 +15,34 @@ import com.quick.location.util.QuickLocationUtil;
 @Service
 public class FirebasePlaceService {
 
-	@Autowired
-	FirebaseServerApp firebaseServerApp;
+    @Autowired
+    FirebaseServerApp firebaseServerApp;
 
-	public void setPlaceListOnFirebase(List<PlaceDetailFirebase> placesFirebaseDetail) {
-		HashMap<String, Object> placestoFirebase = new HashMap<>();
-		for (PlaceDetailFirebase placeDetail : placesFirebaseDetail) {
-			placestoFirebase.put(placeDetail.getPlaceId(), placeDetail);
-		}
-		firebaseServerApp.newChild(
-		        QuickLocationUtil.URL_FIREBASE_DATABASE
-		                + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES,
-		        "data", placestoFirebase);
-	}
+    public void setPlaceListOnFirebase(List<PlaceDetailFirebase> placesFirebaseDetail) {
+        HashMap<String, Object> placestoFirebase = new HashMap<>();
+        for (PlaceDetailFirebase placeDetail : placesFirebaseDetail) {
+            placestoFirebase.put(placeDetail.getPlaceId(), placeDetail);
+        }
+        firebaseServerApp.newChild(
+            QuickLocationUtil.URL_FIREBASE_DATABASE
+                + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES,
+            "data", placestoFirebase);
+    }
 
-	public DatabaseReference getDatabaseReference(String url) {
+    public DatabaseReference getDatabaseReference(String url) {
 
-		return FirebaseDatabase.getInstance().getReference(url);
-	}
+        return FirebaseDatabase.getInstance().getReference(url);
+    }
 
-	public void setReviewsListOnFirebase(List<ReviewFirebase> reviewsFirebaseDetail) {
-		{
-			HashMap<String, Object> placestoFirebase = new HashMap<>();
-			for (ReviewFirebase reviewDetail : reviewsFirebaseDetail) {
-				DatabaseReference ref = firebaseServerApp
-				        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE
-				                + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES + "/review");
-				ref.child(reviewDetail.getPlaceId()).push().setValue(reviewDetail);
+    public void setReviewsListOnFirebase(List<ReviewFirebase> reviewsFirebaseDetail) {
 
-			}
+        for (ReviewFirebase reviewDetail : reviewsFirebaseDetail) {
+            DatabaseReference ref = firebaseServerApp
+                .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE
+                    + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES + "/review");
+            ref.child(reviewDetail.getPlaceId()).push().setValue(reviewDetail);
 
-		}
-	}
+        }
+
+    }
 }

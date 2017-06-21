@@ -39,8 +39,6 @@ import lombok.extern.slf4j.Slf4j;
 
 public class PlaceDetailsService implements PlaceDetailsServiceApi {
 
-	// @Autowired
-	// ActualizacionTread actualizacionTread;
 
 	@Autowired
 	PlaceEntityRepo placeEntityRepo;
