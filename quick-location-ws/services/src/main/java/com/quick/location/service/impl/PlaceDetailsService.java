@@ -65,7 +65,7 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 		log.info("Se insertara el place y sus detalles en el servidor");
 		DozerBeanMapper mapper = new DozerBeanMapper();
 		PlaceEntity placeEntity = mapper.map(placeDetail, PlaceEntity.class);
-		placeEntity.autoSetThis();
+//		placeEntity.autoSetThis();
 		placeEntityRepo.save(placeEntity);
 		log.info("Se Finaliza la insecion ");
 	}

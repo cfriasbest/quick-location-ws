@@ -1,18 +1,23 @@
-package com.quick.location.entity;
+package com.quick.location.entity.old;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.dozer.Mapping;
-
-import java.util.List;
 
 /**
  * The persistent class for the place database table.
  * 
  */
-@Entity
-@Table(name = "place")
+//@Entity
+//@Table(name = "place")
 @NamedQuery(name = "PlaceEntity.findAll", query = "SELECT p FROM PlaceEntity p")
 public class PlaceEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +29,7 @@ public class PlaceEntity implements Serializable {
 	private String formattedAddress;
 
 	private String formattedPhoneNumber;
+
 	@Mapping("geometry.location.lat")
 	private float lat;
 	@Mapping("geometry.location.lng")
@@ -40,8 +46,8 @@ public class PlaceEntity implements Serializable {
 	private List<ReviewEntity> reviews;
 
 	// bi-directional many-to-one association to SugestDataEntity
-	@OneToMany(mappedBy = "place", cascade = { CascadeType.ALL })
-	private List<SugestDataEntity> sugestData;
+	// @OneToMany(mappedBy="place")
+	// private List<SugestDataEntity> sugestData;
 
 	public PlaceEntity() {
 	}
@@ -125,6 +131,22 @@ public class PlaceEntity implements Serializable {
 		return review;
 	}
 
+	public void autoSetThis() {
+		// for (PhotoEntity photoentity : this.photos )
+		// {
+		// photoentity.setPlace(this);
+		// }
+
+		// if (!this.reviews.isEmpty()) {
+		// for (ReviewEntity reviewEntity : this.reviews) {
+		// reviewEntity.setPlace(this);
+		// }
+		// }
+		//
+		// placedetail.setPlaceId(this.placeId);
+
+	}
+
 	public ReviewEntity removeReview(ReviewEntity review) {
 		getReviews().remove(review);
 		review.setPlace(null);
@@ -132,26 +154,26 @@ public class PlaceEntity implements Serializable {
 		return review;
 	}
 
-	public List<SugestDataEntity> getSugestData() {
-		return this.sugestData;
-	}
+	// public List<SugestDataEntity> getSugestData() {
+	// return this.sugestData;
+	// }
+	//
+	// public void setSugestData(List<SugestDataEntity> sugestData) {
+	// this.sugestData = sugestData;
+	// }
 
-	public void setSugestData(List<SugestDataEntity> sugestData) {
-		this.sugestData = sugestData;
-	}
-
-	public SugestDataEntity addSugestData(SugestDataEntity sugestData) {
-		getSugestData().add(sugestData);
-		sugestData.setPlace(this);
-
-		return sugestData;
-	}
-
-	public SugestDataEntity removeSugestData(SugestDataEntity sugestData) {
-		getSugestData().remove(sugestData);
-		sugestData.setPlace(null);
-
-		return sugestData;
-	}
+	// public SugestDataEntity addSugestData(SugestDataEntity sugestData) {
+	// getSugestData().add(sugestData);
+	// sugestData.setPlace(this);
+	//
+	// return sugestData;
+	// }
+	//
+	// public SugestDataEntity removeSugestData(SugestDataEntity sugestData) {
+	// getSugestData().remove(sugestData);
+	// sugestData.setPlace(null);
+	//
+	// return sugestData;
+	// }
 
 }

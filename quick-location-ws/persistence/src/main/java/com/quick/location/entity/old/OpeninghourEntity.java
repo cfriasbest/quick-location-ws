@@ -1,4 +1,4 @@
-package com.quick.location.entity;
+package com.quick.location.entity.old;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -8,15 +8,17 @@ import javax.persistence.*;
  * The persistent class for the openinghours database table.
  * 
  */
-@Entity
-@Table(name="openinghours")
+//@Entity
+//@Table(name="openinghours")
 @NamedQuery(name="OpeninghourEntity.findAll", query="SELECT o FROM OpeninghourEntity o")
 public class OpeninghourEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private int idopenHours;
 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int idopeningHours;
+	
+	@Id
 	@Column(name="place_id")
 	private String placeId;
 
@@ -26,12 +28,12 @@ public class OpeninghourEntity implements Serializable {
 	public OpeninghourEntity() {
 	}
 
-	public int getIdopenHours() {
-		return this.idopenHours;
+	public int getIdopeningHours() {
+		return this.idopeningHours;
 	}
 
-	public void setIdopenHours(int idopenHours) {
-		this.idopenHours = idopenHours;
+	public void setIdopeningHours(int idopeningHours) {
+		this.idopeningHours = idopeningHours;
 	}
 
 	public String getPlaceId() {

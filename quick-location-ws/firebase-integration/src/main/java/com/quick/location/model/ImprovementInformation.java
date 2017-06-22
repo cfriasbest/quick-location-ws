@@ -1,6 +1,9 @@
 package com.quick.location.model;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by Rosendo on 17/06/2017.
  * Esta clase define la etiqueta y el contenido que difiere al conjunto
@@ -8,23 +11,12 @@ import java.util.List;
  * aplicacion web
  */
 
+@Getter
+@Setter
 public class ImprovementInformation {
     private String informationTag;
     private String informationContent;
-    private Object isSchedule;
-    
-    public Object getIsSchedule() {
-		return isSchedule;
-	}
-
-	public void setIsSchedule(Object isSchedule) {
-		this.isSchedule = isSchedule;
-	}
-
-	public void setSchedule(boolean isSchedule) {
-		this.isSchedule = isSchedule;
-	}
-
+    private boolean schedule;
 	private List<Schedule> schedules;
     private String author;
 

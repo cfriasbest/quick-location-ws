@@ -18,25 +18,25 @@ public class QuickLocationUtil {
 
     private QuickLocationUtil() {}
 
-    public final static String URL_FIREBASE_APP = "https://quick-location.firebaseio.com";
-    public final static String URL_FIREBASE_ADMIN_SDK = "/quick-location-firebase-adminsdk.json";
-    public final static String URL_FIREBASE_DATABASE = "/";
-    public final static String URL_FIREBASE_DATABASE_CHILD_PLACES = "places3";
-    public final static String URL_FIREBASE_DATABASE_PLACES_NEW_DATA =
+    public  static String URL_FIREBASE_APP = "https://quick-location.firebaseio.com";
+    public  static String URL_FIREBASE_ADMIN_SDK = "/quick-location-firebase-adminsdk.json";
+    public  static String URL_FIREBASE_DATABASE = "/";
+    public  static String URL_FIREBASE_DATABASE_CHILD_PLACES = "places";
+    public  static String URL_FIREBASE_DATABASE_PLACES_NEW_DATA =
         URL_FIREBASE_DATABASE_CHILD_PLACES
             + "/new/data";
-    public final static String URL_FIREBASE_DATABASE_NEW_REVIEW = URL_FIREBASE_DATABASE_CHILD_PLACES
+    public  static String URL_FIREBASE_DATABASE_NEW_REVIEW = URL_FIREBASE_DATABASE_CHILD_PLACES
+        + "/new/reviews";
+
+    public  static String URL_FIREBASE_DATABASE_NEW_REPORT = "places"
         + "/new/review";
 
-    public final static String URL_FIREBASE_DATABASE_NEW_REPORT = "places"
-        + "/new/review";
-
-    public final static String URL_FIREBASE_DATABASE_PLACES_DATA =
+    public  static String URL_FIREBASE_DATABASE_PLACES_DATA =
         URL_FIREBASE_DATABASE_CHILD_PLACES
             + "/data";
-    public final static String URL_FIREBASE_DATABASE_PLACES_REVIEW =
+    public  static String URL_FIREBASE_DATABASE_PLACES_REVIEW =
         URL_FIREBASE_DATABASE_CHILD_PLACES
-            + "/report-issue";
+            + "/reviews";
 
     public static <T> T toData(ImprovementRequest inData, final Class<T> destType) {
         T palceDetail = null;
@@ -47,7 +47,7 @@ public class QuickLocationUtil {
                 BeanUtils.setProperty(palceDetail, dataInfo.getInformationTag(),
                     dataInfo.getInformationContent());
 
-                if ((boolean) dataInfo.getIsSchedule()) {
+                if ((boolean) dataInfo.isSchedule()) {
                     for (Schedule Schedule : dataInfo.getSchedules())
                         log.info(Schedule.getClosedFrom() + " " + Schedule.getDayName()
                             + "" + Schedule.getIsOpen());

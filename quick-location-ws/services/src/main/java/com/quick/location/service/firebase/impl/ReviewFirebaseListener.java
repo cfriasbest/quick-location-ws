@@ -71,19 +71,19 @@ public class ReviewFirebaseListener {
         });
 
     }
-
+//TODO CORREGIR POR BRUTO DEFINI MAL 
     private void insertarPlaceBD(DataSnapshot dataSnapshot) {
         ImprovementRequest inData = dataSnapshot.getValue(ImprovementRequest.class);
-        ReviewEntity entity = QuickLocationUtil.toData(inData, ReviewEntity.class);
-        PlaceEntity place = new PlaceEntity();
-        place.setPlaceId(dataSnapshot.getKey());
-        entity.setPlace(place);
-        firebasePlaceService
-            .getDatabaseReference(
-                QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REVIEW)
-            .child(place.getPlaceId()).child(dataSnapshot.getKey())
-            .removeValue();
-        reviewService.save(entity);
+        ReviewFirebase entity = QuickLocationUtil.toData(inData, ReviewFirebase.class);
+        entity.setAuthorName(inData.getAuthor());
+
+//        firebasePlaceService
+//            .getDatabaseReference(
+//                QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REVIEW)
+//            .child(place.getPlaceId()).child(dataSnapshot.getKey())
+//            .removeValue();
+        ReviewEntity reviewEntity = MapperUtil.mapBean(entity, ReviewEntity.class);
+        reviewService.save(reviewEntity);
         ReviewFirebase reviewFirebase = MapperUtil.mapBean(entity,
             ReviewFirebase.class);
         firebasePlaceService

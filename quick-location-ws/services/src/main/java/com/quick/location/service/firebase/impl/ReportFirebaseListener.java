@@ -36,7 +36,7 @@ public class ReportFirebaseListener {
     @Autowired
     ReportServiceApi reportService;
 
-    @PostConstruct
+//    @PostConstruct
     @Transactional
     public void addReportListener() {
 

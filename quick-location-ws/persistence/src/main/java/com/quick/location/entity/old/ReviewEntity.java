@@ -1,31 +1,29 @@
-package com.quick.location.entity;
+package com.quick.location.entity.old;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import org.dozer.Mapping;
-
 import java.util.Date;
 
 
 /**
- * The persistent class for the review database table.
+ * The persistent class for the reviews database table.
  * 
  */
-@Entity
-@Table(name="review")
-@NamedQuery(name="ReviewEntity.findAll", query="SELECT r FROM ReviewEntity r")
+//@Entity
+//@Table(name="reviews")
+//@NamedQuery(name="ReviewEntity.findAll", query="SELECT r FROM ReviewEntity r")
 public class ReviewEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idreviews;
 
 	@Column(name="author_name")
 	private String authorName;
 
 	private String rating;
-	@Mapping("comment")
+
 	private String text;
 
 	@Temporal(TemporalType.TIMESTAMP)
