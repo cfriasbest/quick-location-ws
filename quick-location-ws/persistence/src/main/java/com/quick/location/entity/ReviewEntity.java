@@ -7,21 +7,20 @@ import org.dozer.Mapping;
 
 import java.util.Date;
 
-
 /**
  * The persistent class for the review database table.
  * 
  */
 @Entity
-@Table(name="review")
-@NamedQuery(name="ReviewEntity.findAll", query="SELECT r FROM ReviewEntity r")
+@Table(name = "review")
+@NamedQuery(name = "ReviewEntity.findAll", query = "SELECT r FROM ReviewEntity r")
 public class ReviewEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int idreviews;
 
-	@Column(name="author_name")
+	@Column(name = "author_name")
 	private String authorName;
 
 	private String rating;
@@ -31,13 +30,10 @@ public class ReviewEntity implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date time;
 
-	//bi-directional many-to-one association to PlaceEntity
+	// bi-directional many-to-one association to PlaceEntity
 	@ManyToOne
-	@JoinColumn(name="place_id")
+	@JoinColumn(name = "place_id")
 	private PlaceEntity place;
-
-	public ReviewEntity() {
-	}
 
 	public int getIdreviews() {
 		return this.idreviews;

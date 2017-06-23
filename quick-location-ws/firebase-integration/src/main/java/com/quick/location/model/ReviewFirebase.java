@@ -22,6 +22,7 @@ public class ReviewFirebase {
 
 	private String authorName;
 	private Double rating;
+	@Mapping("text")
 	private String comment;
 	@Mapping("place.placeId")
 	private String placeId;

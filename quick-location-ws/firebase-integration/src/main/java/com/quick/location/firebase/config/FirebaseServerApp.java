@@ -14,7 +14,11 @@ import com.google.firebase.auth.FirebaseCredentials;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.quick.location.util.QuickLocationUtil;
-
+/**
+ * 
+ * @author cfrias
+ *
+ */
 @Component
 public class FirebaseServerApp {
 

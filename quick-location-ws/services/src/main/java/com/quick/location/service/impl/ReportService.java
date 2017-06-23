@@ -1,6 +1,8 @@
 package com.quick.location.service.impl;
 
+import com.quick.location.entity.ReportEntity;
 import com.quick.location.entity.ReviewEntity;
+import com.quick.location.repo.ReportEntityRepo;
 import com.quick.location.repo.ReviewEntityRepo;
 import com.quick.location.service.ReportServiceApi;
 import com.quick.location.service.ReviewServiceApi;
@@ -15,15 +17,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReportService implements ReportServiceApi {
-    
-//    @Autowired
-//    ReviewEntityRepo reviewEntityRepo;
 
-    
-//    @Override
-//    public void save(ReviewEntity reviewEntity) {
-//      reviewEntityRepo.save(reviewEntity);
-//        
-//    }
+	@Autowired
+	ReportEntityRepo reportEntityRepo;
+
+	@Override
+	public void save(ReportEntity reportEntity) {
+		reportEntityRepo.save(reportEntity);
+
+	}
 
 }

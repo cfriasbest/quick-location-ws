@@ -52,7 +52,7 @@ public class FirebasePlaceService {
         for (ReviewFirebase reviewDetail : reviewsFirebaseDetail) {
             DatabaseReference ref = firebaseServerApp
                 .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE
-                    + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES + "/review");
+                    + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES + "/reviews");
             ref.child(reviewDetail.getPlaceId()).push().setValue(reviewDetail);
 
         }

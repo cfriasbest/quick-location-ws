@@ -1,11 +1,16 @@
 package com.quick.location.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.dozer.Mapping;
-
-import java.util.List;
 
 /**
  * The persistent class for the place database table.
@@ -39,12 +44,9 @@ public class PlaceEntity implements Serializable {
 	@OneToMany(mappedBy = "place")
 	private List<ReviewEntity> reviews;
 
-	// bi-directional many-to-one association to SugestDataEntity
-	@OneToMany(mappedBy = "place", cascade = { CascadeType.ALL })
-	private List<SugestDataEntity> sugestData;
-
-	public PlaceEntity() {
-	}
+	// bi-directional many-to-one association to ReportEntity
+	@OneToMany(mappedBy = "place")
+	private List<ReportEntity> reports;
 
 	public String getPlaceId() {
 		return this.placeId;
@@ -125,33 +127,26 @@ public class PlaceEntity implements Serializable {
 		return review;
 	}
 
-	public ReviewEntity removeReview(ReviewEntity review) {
-		getReviews().remove(review);
-		review.setPlace(null);
-
-		return review;
+	public List<ReportEntity> getReports() {
+		return this.reports;
 	}
 
-	public List<SugestDataEntity> getSugestData() {
-		return this.sugestData;
+	public void setReports(List<ReportEntity> reports) {
+		this.reports = reports;
 	}
 
-	public void setSugestData(List<SugestDataEntity> sugestData) {
-		this.sugestData = sugestData;
+	public ReportEntity addReport(ReportEntity report) {
+		getReports().add(report);
+		report.setPlace(this);
+
+		return report;
 	}
 
-	public SugestDataEntity addSugestData(SugestDataEntity sugestData) {
-		getSugestData().add(sugestData);
-		sugestData.setPlace(this);
+	public ReportEntity removeReport(ReportEntity report) {
+		getReports().remove(report);
+		report.setPlace(null);
 
-		return sugestData;
-	}
-
-	public SugestDataEntity removeSugestData(SugestDataEntity sugestData) {
-		getSugestData().remove(sugestData);
-		sugestData.setPlace(null);
-
-		return sugestData;
+		return report;
 	}
 
 }

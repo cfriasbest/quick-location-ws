@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.quick.location.entity.PlaceEntity;
 import com.quick.location.entity.ReviewEntity;
-import com.quick.location.entity.SugestDataEntity;
 import com.quick.location.firebase.config.FirebasePlaceService;
 import com.quick.location.model.PlaceDetail;
 import com.quick.location.model.PlaceDetailFirebase;
@@ -23,7 +22,6 @@ import com.quick.location.model.ReviewFirebase;
 import com.quick.location.model.SugestData;
 import com.quick.location.repo.PlaceEntityRepo;
 import com.quick.location.repo.ReviewEntityRepo;
-import com.quick.location.repo.SugestDataEntityRepo;
 import com.quick.location.service.PlaceDetailsServiceApi;
 import com.quick.location.service.util.MapperUtil;
 
@@ -45,9 +43,6 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 
 	@Autowired
 	FirebasePlaceService firebasePlaceService;
-
-	@Autowired
-	SugestDataEntityRepo sugestDataEntityRepo;
 
 	@Autowired
 	ReviewEntityRepo reviewEntityRepo;
@@ -93,7 +88,7 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 				SugestData sugerencia = dataSnapshot.getValue(SugestData.class);
 				sugerencia.setIdSugestData(dataSnapshot.getKey());
 				sugerencia.setState("SD001");
-				sugestDataEntityRepo.save(MapperUtil.mapBean(sugerencia, SugestDataEntity.class));
+//				sugestDataEntityRepo.save(MapperUtil.mapBean(sugerencia, SugestDataEntity.class));
 				log.info("Se inserto el elemendo ");
 
 			}
@@ -103,7 +98,7 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 				SugestData sugerencia = dataSnapshot.getValue(SugestData.class);
 				sugerencia.setIdSugestData(dataSnapshot.getKey());
 				sugerencia.setState("SD001");
-				sugestDataEntityRepo.save(MapperUtil.mapBean(sugerencia, SugestDataEntity.class));
+//				sugestDataEntityRepo.save(MapperUtil.mapBean(sugerencia, SugestDataEntity.class));
 				log.info("Se cambio el elemendo ");
 
 //				pruebaActualizacion(sugerencia);
@@ -114,7 +109,7 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 			public void onChildRemoved(DataSnapshot dataSnapshot) {
 				SugestData sugerencia = dataSnapshot.getValue(SugestData.class);
 				sugerencia.setIdSugestData(dataSnapshot.getKey());
-				sugestDataEntityRepo.delete(sugerencia.getIdSugestData());
+//				sugestDataEntityRepo.delete(sugerencia.getIdSugestData());
 				log.info("Se removio el elemendo ");
 			}
 

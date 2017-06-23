@@ -26,70 +26,74 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ReviewFirebaseListener {
 
-    @Autowired
-    PlaceEntityRepo placeEntityRepo;
+	@Autowired
+	PlaceEntityRepo placeEntityRepo;
 
-    @Autowired
-    FirebasePlaceService firebasePlaceService;
+	@Autowired
+	FirebasePlaceService firebasePlaceService;
 
-    @Autowired
-    ReviewServiceApi reviewService;
+	@Autowired
+	ReviewServiceApi reviewService;
 
-    @PostConstruct
-    @Transactional
-    public void reviewListener() {
-        DatabaseReference ref = firebasePlaceService
-            .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REVIEW);
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                log.info("Se inserto el elemendo ");
-                for (DataSnapshot dataSnapshotItem : dataSnapshot.getChildren()) {
-                    insertarPlaceBD(dataSnapshotItem);
-                }
-            }
+	@PostConstruct
+	@Transactional
+	public void reviewListener() {
+		DatabaseReference ref = firebasePlaceService
+		        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REVIEW);
+		ref.addChildEventListener(new ChildEventListener() {
+			@Override
+			public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+				log.info("Se inserto el elemendo ");
+				for (DataSnapshot dataSnapshotItem : dataSnapshot.getChildren()) {
+					insertarPlaceBD(dataSnapshotItem);
+				}
+			}
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-                log.info("Se cambio el elemendo ");
-            }
+			@Override
+			public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+				log.info("Se cambio el elemendo ");
+			}
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                log.info("Se removio el elemendo ");
-            }
+			@Override
+			public void onChildRemoved(DataSnapshot dataSnapshot) {
+				log.info("Se removio el elemendo ");
+			}
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-                log.info("Se movio el elemendo ");
-            }
+			@Override
+			public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+				log.info("Se movio el elemendo ");
+			}
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                log.info("Se Cancelo el elemendo ");
-            }
-        });
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+				log.info("Se Cancelo el elemendo ");
+			}
+		});
 
-    }
-//TODO CORREGIR POR BRUTO DEFINI MAL 
-    private void insertarPlaceBD(DataSnapshot dataSnapshot) {
-        ImprovementRequest inData = dataSnapshot.getValue(ImprovementRequest.class);
-        ReviewFirebase entity = QuickLocationUtil.toData(inData, ReviewFirebase.class);
-        entity.setAuthorName(inData.getAuthor());
+	}
 
-//        firebasePlaceService
-//            .getDatabaseReference(
-//                QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REVIEW)
-//            .child(place.getPlaceId()).child(dataSnapshot.getKey())
-//            .removeValue();
-        ReviewEntity reviewEntity = MapperUtil.mapBean(entity, ReviewEntity.class);
-        reviewService.save(reviewEntity);
-        ReviewFirebase reviewFirebase = MapperUtil.mapBean(entity,
-            ReviewFirebase.class);
-        firebasePlaceService
-            .getDatabaseReference(
-                QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_REVIEW)
-            .child(reviewFirebase.getPlaceId()).push().setValue(reviewFirebase);
-        log.info("Se inserto el elemendo ");
-    }
+	// TODO CORREGIR POR BRUTO DEFINI MAL
+	private void insertarPlaceBD(DataSnapshot dataSnapshot) {
+		ImprovementRequest inData = dataSnapshot.getValue(ImprovementRequest.class);
+		ReviewFirebase entity = QuickLocationUtil.toData(inData, ReviewFirebase.class);
+		entity.setAuthorName(inData.getAuthor());
+
+		// firebasePlaceServiceO
+		// .getDatabaseReference(
+		// QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REVIEW)
+		// .child(place.getPlaceId()).child(dataSnapshot.getKey())
+		// .removeValue();
+		ReviewEntity reviewEntity = MapperUtil.mapBean(entity, ReviewEntity.class);
+		try {
+			reviewService.save(reviewEntity);
+			ReviewFirebase reviewFirebase = MapperUtil.mapBean(reviewEntity, ReviewFirebase.class);
+			firebasePlaceService
+			        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_REVIEW)
+			        .child(reviewFirebase.getPlaceId()).push().setValue(reviewFirebase);
+		} catch (Exception e) {
+			log.error("Mensage error", e);
+		}
+
+		log.info("Se inserto el elemendo ");
+	}
 }
