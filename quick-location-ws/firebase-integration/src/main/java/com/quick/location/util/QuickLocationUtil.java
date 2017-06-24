@@ -22,18 +22,21 @@ public class QuickLocationUtil {
 	public static String URL_FIREBASE_APP = "https://quick-location.firebaseio.com";
 	public static String URL_FIREBASE_ADMIN_SDK = "/quick-location-firebase-adminsdk.json";
 	public static String URL_FIREBASE_DATABASE = "/";
-	public static String URL_FIREBASE_DATABASE_CHILD_PLACES = "places";
+	public static String URL_FIREBASE_DATABASE_CHILD_PLACES = "places2";
 	public static String URL_FIREBASE_DATABASE_PLACES_NEW_DATA = URL_FIREBASE_DATABASE_CHILD_PLACES
 	        + "/new/data";
 	public static String URL_FIREBASE_DATABASE_NEW_REVIEW = URL_FIREBASE_DATABASE_CHILD_PLACES
 	        + "/new/reviews";
 
-	public static String URL_FIREBASE_DATABASE_NEW_REPORT = "places" + "/new/report-issue";
+	public static String URL_FIREBASE_DATABASE_NEW_REPORT = URL_FIREBASE_DATABASE_CHILD_PLACES
+	        + "/new/report-issue";
 
 	public static String URL_FIREBASE_DATABASE_PLACES_DATA = URL_FIREBASE_DATABASE_CHILD_PLACES
 	        + "/data";
 	public static String URL_FIREBASE_DATABASE_PLACES_REVIEW = URL_FIREBASE_DATABASE_CHILD_PLACES
 	        + "/reviews";
+	public static String URL_FIREBASE_DATABASE_PLACES_REPORT = URL_FIREBASE_DATABASE_CHILD_PLACES
+	        + "/report-issue";
 
 	public static <T> T toData(ImprovementRequest inData, final Class<T> destType) {
 		T palceDetail = null;
@@ -70,7 +73,5 @@ public class QuickLocationUtil {
 		}
 		return palceDetail;
 	}
-
-	
 
 }

@@ -3,8 +3,6 @@ package com.quick.location.model;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,7 +24,7 @@ public class PlaceDetail extends Place {
 	private OpeningHours openingHours;
 	private String url;
 	private String website;
-	private List<Review> reviews;
+//	private List<Review> reviews;
 
 	@JsonSetter("formatted_address")
 	public void setFormattedAddress(String formattedAddress) {

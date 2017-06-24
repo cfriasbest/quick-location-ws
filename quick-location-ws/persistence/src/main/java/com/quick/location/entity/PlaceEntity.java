@@ -3,6 +3,7 @@ package com.quick.location.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -39,13 +40,17 @@ public class PlaceEntity implements Serializable {
 	private float rating;
 
 	private String vicinty;
+	
+	private long reviewsCount;
+	
+	private long updatesCount;
 
 	// bi-directional many-to-one association to ReviewEntity
 	@OneToMany(mappedBy = "place")
 	private List<ReviewEntity> reviews;
 
 	// bi-directional many-to-one association to ReportEntity
-	@OneToMany(mappedBy = "place")
+	@OneToMany(mappedBy = "place", cascade = { CascadeType.ALL })
 	private List<ReportEntity> reports;
 
 	public String getPlaceId() {
@@ -149,4 +154,21 @@ public class PlaceEntity implements Serializable {
 		return report;
 	}
 
+	public long getReviewsCount() {
+		return reviewsCount;
+	}
+
+	public void setReviewsCount(long reviewsCount) {
+		this.reviewsCount = reviewsCount;
+	}
+
+	public long getUpdatesCount() {
+		return updatesCount;
+	}
+
+	public void setUpdatesCount(long updatesCount) {
+		this.updatesCount = updatesCount;
+	}
+
+	
 }

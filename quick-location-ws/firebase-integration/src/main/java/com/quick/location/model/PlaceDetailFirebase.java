@@ -25,7 +25,8 @@ public class PlaceDetailFirebase extends Place {
 	private OpeningHours openingHours;
 	private String url;
 	private String website;
-
+	private long reviewsCount;
+	private long updatesCount;
 
 	@JsonSetter("formatted_address")
 

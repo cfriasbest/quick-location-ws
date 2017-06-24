@@ -3,6 +3,8 @@ package com.quick.location.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.dozer.Mapping;
+
 /**
  * The persistent class for the report database table.
  * 
@@ -14,13 +16,15 @@ public class ReportEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_report")
-	private String idReport;
+	private int idReport;
 
 	private String author;
 
 	private String field;
 
+	@Mapping("field_human")
 	@Column(name = "field_human")
 	private String fieldHuman;
 
@@ -31,8 +35,10 @@ public class ReportEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "place_id")
 	private PlaceEntity place;
+	
+	private boolean done;
 
-	public void setIdReport(String idReport) {
+	public void setIdReport(int idReport) {
 		this.idReport = idReport;
 	}
 
@@ -74,6 +80,18 @@ public class ReportEntity implements Serializable {
 
 	public void setPlace(PlaceEntity place) {
 		this.place = place;
+	}
+
+	public int getIdReport() {
+		return idReport;
+	}
+
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
 	}
 
 }

@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.quick.location.entity.OpeninghourEntity;
+import com.quick.location.entity.PlaceEntity;
 import com.quick.location.firebase.config.FirebasePlaceService;
 import com.quick.location.model.ImprovementRequest;
 import com.quick.location.model.PlaceDetail;
@@ -83,9 +84,7 @@ public class PlaceFirebaseListener {
     	PlaceDetail place = dataSnapshot.getValue(PlaceDetail.class);
     	place.setPlaceId(dataSnapshot.getKey());
         placeDetailsService.savePlaceDetails(place);
-//        firebasePlaceService
-//            .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_NEW_DATA)
-//            .child(place.getPlaceId()).removeValue();
+
         if(null!=place.getOpeningHours())
         {
         	OpeninghourEntity openini= MapperUtil.mapBean(place.getOpeningHours(), OpeninghourEntity.class);
@@ -97,6 +96,33 @@ public class PlaceFirebaseListener {
         firebasePlaceService
             .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA)
             .child(place.getPlaceId()).setValue(placeDetailFirebase);
+        
+		firebasePlaceService
+		        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_NEW_DATA)
+		        .child(place.getPlaceId()).removeValue();
+        
         log.info("Se inserto el elemendo ");
+    }
+    
+    
+    
+    public void updatePlace(String placeId,boolean isReview,boolean isUpdate)
+    {
+    	
+    	PlaceEntity entity = placeEntityRepo.findOne(placeId);
+    	if(isReview)
+    	{
+    		entity.setReviewsCount(entity.getReviewsCount()+1);
+    	}
+    	if(isUpdate)
+    	{
+    		entity.setUpdatesCount(entity.getUpdatesCount()+1);
+    	}
+    	placeEntityRepo.save(entity);
+    	 PlaceDetailFirebase placeDetailFirebase = MapperUtil.mapBean(entity,
+    	            PlaceDetailFirebase.class);
+    	firebasePlaceService
+        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA)
+        .child(entity.getPlaceId()).setValue(placeDetailFirebase);
     }
 }

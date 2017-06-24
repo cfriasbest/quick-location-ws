@@ -26,6 +26,7 @@ public class ReviewFirebase {
 	private String comment;
 	@Mapping("place.placeId")
 	private String placeId;
+	private boolean done;
 
 	@Exclude
 	public String getPlaceId() {

@@ -18,6 +18,7 @@ public class ReviewEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idreviews;
 
 	@Column(name = "author_name")
@@ -34,6 +35,8 @@ public class ReviewEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "place_id")
 	private PlaceEntity place;
+	
+	private boolean done;
 
 	public int getIdreviews() {
 		return this.idreviews;
@@ -81,6 +84,14 @@ public class ReviewEntity implements Serializable {
 
 	public void setPlace(PlaceEntity place) {
 		this.place = place;
+	}
+
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
 	}
 
 }

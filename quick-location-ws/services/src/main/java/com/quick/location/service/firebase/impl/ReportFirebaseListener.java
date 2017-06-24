@@ -1,5 +1,7 @@
 package com.quick.location.service.firebase.impl;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import com.quick.location.entity.ReportEntity;
 import com.quick.location.firebase.config.FirebasePlaceService;
 import com.quick.location.model.ImprovementInformation;
 import com.quick.location.model.ImprovementRequest;
-import com.quick.location.model.Report;
+import com.quick.location.model.ReportFirebase;
 import com.quick.location.model.Schedule;
 import com.quick.location.repo.PlaceEntityRepo;
 import com.quick.location.service.ReportServiceApi;
@@ -40,6 +42,9 @@ public class ReportFirebaseListener {
 
 	@Autowired
 	ReportServiceApi reportService;
+	
+	 @Autowired
+	 PlaceFirebaseListener placeFirebaseListener;
 
 	@PostConstruct
 	@Transactional
@@ -61,9 +66,7 @@ public class ReportFirebaseListener {
 
 			@Override
 			public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-				ImprovementRequest inData = dataSnapshot.getValue(ImprovementRequest.class);
-				Report report = QuickLocationUtil.toData(inData, Report.class);
-				log.info("Se cambio el elemendo 1", report.toString());
+				log.info("Se cambio el elemendo 1");
 			}
 
 			@Override
@@ -85,25 +88,13 @@ public class ReportFirebaseListener {
 
 	private void insertarPlaceBD(DataSnapshot dataSnapshot) {
 		ImprovementRequest inData = dataSnapshot.getValue(ImprovementRequest.class);
-		toDataEntity(inData);
-		PlaceEntity place = new PlaceEntity();
-		place.setPlaceId(dataSnapshot.getKey());
+		toDataEntity(inData,dataSnapshot.getKey());
+		
 
-		// firebasePlaceService
-		// .getDatabaseReference(
-		// QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REVIEW)
-		// .child(place.getPlaceId()).child(dataSnapshot.getKey())
-		// .removeValue();
-		// reviewEntityRepo.save(entity);
-		// ReviewFirebase reviewFirebase = MapperUtil.mapBean(entity,
-		// ReviewFirebase.class);
-		// firebasePlaceService
-		// .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_REVIEW)
-		// .child(reviewFirebase.getPlaceId()).push().setValue(reviewFirebase);
 		log.info("Se inserto el elemendo ");
 	}
 
-	public void toDataEntity(ImprovementRequest inData) {
+	public void toDataEntity(ImprovementRequest inData,String key) {
 		ReportEntity palceDetail = null;
 
 		for (ImprovementInformation dataInfo : inData.getInformations()) {
@@ -158,11 +149,26 @@ public class ReportFirebaseListener {
 
 			}
 			try {
+				palceDetail.setDone(false);
 				reportService.save(palceDetail);
+				// palceDetail
+				List<ReportFirebase> repotsFirebase = reportService
+				        .getByPlacePlaceId(inData.getPlaceId());
+				placeFirebaseListener.updatePlace(inData.getPlaceId(), false, true);
+				firebasePlaceService
+				        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_REPORT)
+				        .child(inData.getPlaceId()).setValue(repotsFirebase);
+				
+				firebasePlaceService
+				        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REPORT)
+				        .child(inData.getPlaceId()).child(key).removeValue();
+				 
+				 
 			} catch (Exception e) {
 				log.error("Eror en ", e);
 			}
 		}
 
 	}
+
 }

@@ -9,17 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.quick.location.entity.PlaceEntity;
 import com.quick.location.entity.ReviewEntity;
 import com.quick.location.firebase.config.FirebasePlaceService;
 import com.quick.location.model.PlaceDetail;
 import com.quick.location.model.PlaceDetailFirebase;
 import com.quick.location.model.ReviewFirebase;
-import com.quick.location.model.SugestData;
 import com.quick.location.repo.PlaceEntityRepo;
 import com.quick.location.repo.ReviewEntityRepo;
 import com.quick.location.service.PlaceDetailsServiceApi;
@@ -77,78 +72,78 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 		log.info("Se Actualizaron los datos del servidor");
 	}
 
-	@Transactional
-	public void updatePlaceListener() {
-		DatabaseReference ref = firebasePlaceService
-		        .getDatabaseReference("server/saving-data/fireblog/updated");
-
-		ref.addChildEventListener(new ChildEventListener() {
-			@Override
-			public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-				SugestData sugerencia = dataSnapshot.getValue(SugestData.class);
-				sugerencia.setIdSugestData(dataSnapshot.getKey());
-				sugerencia.setState("SD001");
-//				sugestDataEntityRepo.save(MapperUtil.mapBean(sugerencia, SugestDataEntity.class));
-				log.info("Se inserto el elemendo ");
-
-			}
-
-			@Override
-			public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-				SugestData sugerencia = dataSnapshot.getValue(SugestData.class);
-				sugerencia.setIdSugestData(dataSnapshot.getKey());
-				sugerencia.setState("SD001");
-//				sugestDataEntityRepo.save(MapperUtil.mapBean(sugerencia, SugestDataEntity.class));
-				log.info("Se cambio el elemendo ");
-
-//				pruebaActualizacion(sugerencia);
-
-			}
-
-			@Override
-			public void onChildRemoved(DataSnapshot dataSnapshot) {
-				SugestData sugerencia = dataSnapshot.getValue(SugestData.class);
-				sugerencia.setIdSugestData(dataSnapshot.getKey());
-//				sugestDataEntityRepo.delete(sugerencia.getIdSugestData());
-				log.info("Se removio el elemendo ");
-			}
-
-			@Override
-			public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
-				log.info("Se movio el elemendo ");
-			}
-
-			@Override
-			public void onCancelled(DatabaseError databaseError) {
-				log.info("Se Cancelo el elemendo ");
-			}
-		});
-	}
-
-	
+//	@Transactional
+//	public void updatePlaceListener() {
+//		DatabaseReference ref = firebasePlaceService
+//		        .getDatabaseReference("server/saving-data/fireblog/updated");
+//
+//		ref.addChildEventListener(new ChildEventListener() {
+//			@Override
+//			public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+//				SugestData sugerencia = dataSnapshot.getValue(SugestData.class);
+//				sugerencia.setIdSugestData(dataSnapshot.getKey());
+//				sugerencia.setState("SD001");
+////				sugestDataEntityRepo.save(MapperUtil.mapBean(sugerencia, SugestDataEntity.class));
+//				log.info("Se inserto el elemendo ");
+//
+//			}
+//
+//			@Override
+//			public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+//				SugestData sugerencia = dataSnapshot.getValue(SugestData.class);
+//				sugerencia.setIdSugestData(dataSnapshot.getKey());
+//				sugerencia.setState("SD001");
+////				sugestDataEntityRepo.save(MapperUtil.mapBean(sugerencia, SugestDataEntity.class));
+//				log.info("Se cambio el elemendo ");
+//
+////				pruebaActualizacion(sugerencia);
+//
+//			}
+//
+//			@Override
+//			public void onChildRemoved(DataSnapshot dataSnapshot) {
+//				SugestData sugerencia = dataSnapshot.getValue(SugestData.class);
+//				sugerencia.setIdSugestData(dataSnapshot.getKey());
+////				sugestDataEntityRepo.delete(sugerencia.getIdSugestData());
+//				log.info("Se removio el elemendo ");
+//			}
+//
+//			@Override
+//			public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+//				log.info("Se movio el elemendo ");
+//			}
+//
+//			@Override
+//			public void onCancelled(DatabaseError databaseError) {
+//				log.info("Se Cancelo el elemendo ");
+//			}
+//		});
+//	}
 
 	
 
-	@Override
-	@Transactional
-	public void updatePlaceDetails(SugestData sugestData) {
-		log.info("Se ingresa al metodo de Actualizacion de datos ");
+	
 
-		// PlaceEntity entity =
-		// placeEntityRepo.findOne(sugestData.getPlaceId());
-		// PlacedetailEntity placeDetail = entity.getPlacedetail();
-		// if (null != sugestData.getDirection()) {
-		// placeDetail.setFormattedAddress(sugestData.getDirection());
-		// }
-		// if (null != sugestData.getPhone()) {
-		// placeDetail.setFormattedPhoneNumber(sugestData.getPhone());
-		// }
-		//
-		// placedetailEntityRepo.save(placeDetail);
-
-		log.info("Se  Actualizo los datos ");
-
-	}
+//	@Override
+//	@Transactional
+//	public void updatePlaceDetails(SugestData sugestData) {
+//		log.info("Se ingresa al metodo de Actualizacion de datos ");
+//
+//		// PlaceEntity entity =
+//		// placeEntityRepo.findOne(sugestData.getPlaceId());
+//		// PlacedetailEntity placeDetail = entity.getPlacedetail();
+//		// if (null != sugestData.getDirection()) {
+//		// placeDetail.setFormattedAddress(sugestData.getDirection());
+//		// }
+//		// if (null != sugestData.getPhone()) {
+//		// placeDetail.setFormattedPhoneNumber(sugestData.getPhone());
+//		// }
+//		//
+//		// placedetailEntityRepo.save(placeDetail);
+//
+//		log.info("Se  Actualizo los datos ");
+//
+//	}
 
 	
 

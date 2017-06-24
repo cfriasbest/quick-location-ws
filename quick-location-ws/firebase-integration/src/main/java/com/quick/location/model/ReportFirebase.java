@@ -20,4 +20,5 @@ public class ReportFirebase {
 
 	private String value;
 
+	private boolean done;
 }

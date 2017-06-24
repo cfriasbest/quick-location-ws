@@ -1,10 +1,15 @@
 package com.quick.location.service.firebase.impl;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.quick.location.entity.PlaceEntity;
 import com.quick.location.entity.ReviewEntity;
 import com.quick.location.firebase.config.FirebasePlaceService;
 import com.quick.location.model.ImprovementRequest;
@@ -13,12 +18,6 @@ import com.quick.location.repo.PlaceEntityRepo;
 import com.quick.location.service.ReviewServiceApi;
 import com.quick.location.service.util.MapperUtil;
 import com.quick.location.util.QuickLocationUtil;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.PostConstruct;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +33,9 @@ public class ReviewFirebaseListener {
 
 	@Autowired
 	ReviewServiceApi reviewService;
+
+	@Autowired
+	PlaceFirebaseListener placeFirebaseListener;
 
 	@PostConstruct
 	@Transactional
@@ -72,24 +74,26 @@ public class ReviewFirebaseListener {
 
 	}
 
-	// TODO CORREGIR POR BRUTO DEFINI MAL
+	
 	private void insertarPlaceBD(DataSnapshot dataSnapshot) {
 		ImprovementRequest inData = dataSnapshot.getValue(ImprovementRequest.class);
 		ReviewFirebase entity = QuickLocationUtil.toData(inData, ReviewFirebase.class);
 		entity.setAuthorName(inData.getAuthor());
 
-		// firebasePlaceServiceO
-		// .getDatabaseReference(
-		// QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REVIEW)
-		// .child(place.getPlaceId()).child(dataSnapshot.getKey())
-		// .removeValue();
 		ReviewEntity reviewEntity = MapperUtil.mapBean(entity, ReviewEntity.class);
+		reviewEntity.setDone(false);
 		try {
 			reviewService.save(reviewEntity);
 			ReviewFirebase reviewFirebase = MapperUtil.mapBean(reviewEntity, ReviewFirebase.class);
+			placeFirebaseListener.updatePlace(inData.getPlaceId(), true, false);
 			firebasePlaceService
 			        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_REVIEW)
 			        .child(reviewFirebase.getPlaceId()).push().setValue(reviewFirebase);
+
+			firebasePlaceService
+			        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REVIEW)
+			        .child(inData.getPlaceId()).child(dataSnapshot.getKey()).removeValue();
+
 		} catch (Exception e) {
 			log.error("Mensage error", e);
 		}
