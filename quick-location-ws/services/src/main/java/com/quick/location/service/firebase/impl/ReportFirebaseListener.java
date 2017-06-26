@@ -224,9 +224,9 @@ public class ReportFirebaseListener {
                 reportService.save(palceDetail);
                 updteFirebase(inData.getPlaceId());
 
-                // firebasePlaceService.removeObjectToFirebase(
-                // QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REPORT,
-                // inData.getPlaceId() + "/" + key);
+                 firebasePlaceService.removeObjectToFirebase(
+                 QuickLocationUtil.URL_FIREBASE_DATABASE_NEW_REPORT,
+                 inData.getPlaceId() + "/" + key);
 
             } catch (Exception e) {
                 log.error("Eror en ", e);

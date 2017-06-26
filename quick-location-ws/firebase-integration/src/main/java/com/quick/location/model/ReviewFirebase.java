@@ -32,6 +32,7 @@ public class ReviewFirebase {
     private String placeId;
     private boolean done;
     private boolean remove;
+    
 
     private Date date;
 

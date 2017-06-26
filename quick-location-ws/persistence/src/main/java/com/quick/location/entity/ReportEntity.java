@@ -38,7 +38,7 @@ public class ReportEntity implements Serializable {
     @Mapping("field_human")
     @Column(name = "field_human")
     private String fieldHuman;
-    @Column(insertable=false, updatable=true)
+    @Column(insertable=false, updatable=false)
     private Timestamp date;
 
     @Lob

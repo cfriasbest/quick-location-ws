@@ -35,7 +35,7 @@ public class ReviewEntity implements Serializable {
     private String rating;
     @Mapping("comment")
     private String text;
-    @Column(insertable=false, updatable=true)
+    @Column(insertable=false, updatable=false)
     private Timestamp date;
 
     // bi-directional many-to-one association to PlaceEntity
