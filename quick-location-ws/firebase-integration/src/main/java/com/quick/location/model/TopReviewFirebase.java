@@ -1,5 +1,6 @@
 package com.quick.location.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import org.dozer.Mapping;
@@ -20,10 +21,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @IgnoreExtraProperties
-public class ReviewFirebase {
+public class TopReviewFirebase {
 
-    private int idreviews;
-    
     private String authorName;
     private Double rating;
     @Mapping("text")
@@ -31,9 +30,12 @@ public class ReviewFirebase {
     @Mapping("place.placeId")
     private String placeId;
     private boolean done;
-    private boolean remove;
-
-    private Date date;
+    @Mapping("place.name")
+    private String name;
+    private String date;
+    
+    
+    
 
     @Exclude
     public String getPlaceId() {

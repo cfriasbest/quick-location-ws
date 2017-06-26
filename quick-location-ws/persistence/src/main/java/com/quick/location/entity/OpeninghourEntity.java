@@ -13,10 +13,11 @@ import javax.persistence.*;
 public class OpeninghourEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idopenHours;
 
+	@Id
 	@Column(name = "place_id")
 	private String placeId;
 

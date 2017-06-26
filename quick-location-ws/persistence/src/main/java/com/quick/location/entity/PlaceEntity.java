@@ -7,8 +7,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.dozer.Mapping;
@@ -39,18 +41,22 @@ public class PlaceEntity implements Serializable {
 
 	private float rating;
 
-	private String vicinty;
+	private String vicinity;
 	
+	private String url;
+
 	private long reviewsCount;
-	
+
 	private long updatesCount;
 
 	// bi-directional many-to-one association to ReviewEntity
 	@OneToMany(mappedBy = "place")
+    @Column(insertable=false, updatable=true)
 	private List<ReviewEntity> reviews;
 
 	// bi-directional many-to-one association to ReportEntity
 	@OneToMany(mappedBy = "place", cascade = { CascadeType.ALL })
+    @Column(insertable=false, updatable=true)
 	private List<ReportEntity> reports;
 
 	public String getPlaceId() {
@@ -109,15 +115,17 @@ public class PlaceEntity implements Serializable {
 		this.rating = rating;
 	}
 
-	public String getVicinty() {
-		return this.vicinty;
-	}
 
-	public void setVicinty(String vicinty) {
-		this.vicinty = vicinty;
-	}
 
-	public List<ReviewEntity> getReviews() {
+	public String getVicinity() {
+        return vicinity;
+    }
+
+    public void setVicinity(String vicinity) {
+        this.vicinity = vicinity;
+    }
+
+    public List<ReviewEntity> getReviews() {
 		return this.reviews;
 	}
 
@@ -170,5 +178,12 @@ public class PlaceEntity implements Serializable {
 		this.updatesCount = updatesCount;
 	}
 
-	
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
 }

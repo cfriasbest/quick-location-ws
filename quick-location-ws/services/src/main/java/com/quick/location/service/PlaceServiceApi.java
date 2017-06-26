@@ -6,15 +6,8 @@ import com.quick.location.model.ResponseForPlaces;
 
 public interface PlaceServiceApi {
 
-	// public Place getPlace(Place place);
-	//
 	public ResponseForPlaces getPlaces(Place place);
 
-	//
-	// public Place savePlace(Place place);
-	//
-	// public Place upadatePlace(Place place);
-	//
 	public ResponseForPlaceDetails getPlaceDetail(String placeId);
 
 }

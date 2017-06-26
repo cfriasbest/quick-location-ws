@@ -24,16 +24,17 @@ public class FirebasePlaceService {
     /**
      * @param placesFirebaseDetail
      */
-    public void setPlaceListOnFirebase(List<PlaceDetailFirebase> placesFirebaseDetail) {
-        HashMap<String, Object> placestoFirebase = new HashMap<>();
-        for (PlaceDetailFirebase placeDetail : placesFirebaseDetail) {
-            placestoFirebase.put(placeDetail.getPlaceId(), placeDetail);
-        }
-        firebaseServerApp.newChild(
-            QuickLocationUtil.URL_FIREBASE_DATABASE
-                + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES,
-            "data", placestoFirebase);
-    }
+    // public void setPlaceListOnFirebase(List<PlaceDetailFirebase>
+    // placesFirebaseDetail) {
+    // HashMap<String, Object> placestoFirebase = new HashMap<>();
+    // for (PlaceDetailFirebase placeDetail : placesFirebaseDetail) {
+    // placestoFirebase.put(placeDetail.getPlaceId(), placeDetail);
+    // }
+    // firebaseServerApp.newChild(
+    // QuickLocationUtil.URL_FIREBASE_DATABASE
+    // + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES,
+    // "data", placestoFirebase);
+    // }
 
     /**
      * @param url
@@ -47,15 +48,34 @@ public class FirebasePlaceService {
     /**
      * @param reviewsFirebaseDetail
      */
-    public void setReviewsListOnFirebase(List<ReviewFirebase> reviewsFirebaseDetail) {
+    // public void setReviewsListOnFirebase(List<ReviewFirebase>
+    // reviewsFirebaseDetail) {
+    //
+    // for (ReviewFirebase reviewDetail : reviewsFirebaseDetail) {
+    // DatabaseReference ref = firebaseServerApp
+    // .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE
+    // + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES + "/reviews");
+    // ref.child(reviewDetail.getPlaceId()).push().setValue(reviewDetail);
+    //
+    // }
+    //
+    // }
 
-        for (ReviewFirebase reviewDetail : reviewsFirebaseDetail) {
-            DatabaseReference ref = firebaseServerApp
-                .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE
-                    + QuickLocationUtil.URL_FIREBASE_DATABASE_CHILD_PLACES + "/reviews");
-            ref.child(reviewDetail.getPlaceId()).push().setValue(reviewDetail);
+    public void objectToFirebase(String path, String idNode, Object objectToSend) {
 
-        }
+        firebaseServerApp.getDatabaseReference(path).child(idNode).setValue(objectToSend);
+
+    }
+
+    public void objectPushToFirebase(String path, String idNode, Object objectToSend) {
+
+        firebaseServerApp.getDatabaseReference(path).child(idNode).push().setValue(objectToSend);
+
+    }
+
+    public void removeObjectToFirebase(String path, String idNode) {
+
+        firebaseServerApp.getDatabaseReference(path).child(idNode).removeValue();
 
     }
 }

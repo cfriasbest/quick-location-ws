@@ -1,5 +1,7 @@
 package com.quick.location.service.firebase.impl;
 
+import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import com.quick.location.entity.OpeninghourEntity;
 import com.quick.location.entity.PlaceEntity;
 import com.quick.location.firebase.config.FirebasePlaceService;
 import com.quick.location.model.ImprovementRequest;
+import com.quick.location.model.OpeningHours;
 import com.quick.location.model.PlaceDetail;
 import com.quick.location.model.PlaceDetailFirebase;
 import com.quick.location.repo.OpeninghourEntityRepo;
@@ -30,7 +33,7 @@ public class PlaceFirebaseListener {
 
     @Autowired
     PlaceEntityRepo placeEntityRepo;
-    
+
     @Autowired
     OpeninghourEntityRepo openinghourEntityRepo;
 
@@ -43,13 +46,12 @@ public class PlaceFirebaseListener {
     @PostConstruct
     @Transactional
     public void placeListener() {
-        DatabaseReference ref = firebasePlaceService
-            .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_NEW_DATA);
+        DatabaseReference ref = firebasePlaceService.getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_NEW_DATA);
 
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-            	log.info("Se inicia la insercion del lugar");
+                log.info("Se inicia la insercion del lugar");
                 insertarPlaceBD(dataSnapshot);
                 log.info("Se Finaliza  la insercion del lugar");
 
@@ -57,9 +59,53 @@ public class PlaceFirebaseListener {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-                ImprovementRequest inData = dataSnapshot.getValue(ImprovementRequest.class);
-                PlaceDetail place = QuickLocationUtil.toData(inData, PlaceDetail.class);
-                log.info("Se cambio el elemendo ", place.toString());
+                log.info("Se inicia la insercion del lugar");
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                log.info("Se removio el elemendo ");
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {
+                log.info("Se movio el elemendo ");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                log.info("Se Cancelo el elemendo ");
+            }
+        });
+
+    }
+    
+    @PostConstruct
+    @Transactional
+    public void updatePlaceListener() {
+        DatabaseReference ref = firebasePlaceService.getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA);
+
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                log.info("Se inicia la insercion del lugar");
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+                
+                log.info("Se inicia la insercion del lugar");
+                PlaceDetailFirebase placeDetailFirebase = dataSnapshot.getValue(PlaceDetailFirebase.class); 
+                if(placeDetailFirebase.getUpdateAcept()>0)
+                {
+                placeDetailFirebase.setPlaceId(dataSnapshot.getKey());
+                placeDetailFirebase.setUpdatesCount(placeDetailFirebase.getUpdatesCount()-placeDetailFirebase.getUpdateAcept());
+                placeDetailsService.savePlaceDetails(placeDetailFirebase);
+                placeDetailFirebase.setUpdateAcept(0);
+                firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA, placeDetailFirebase.getPlaceId(), placeDetailFirebase);
+                }
+                log.info("Se cambio el elemendo ");
             }
 
             @Override
@@ -81,48 +127,71 @@ public class PlaceFirebaseListener {
     }
 
     private void insertarPlaceBD(DataSnapshot dataSnapshot) {
-    	PlaceDetail place = dataSnapshot.getValue(PlaceDetail.class);
-    	place.setPlaceId(dataSnapshot.getKey());
+        PlaceDetailFirebase place = dataSnapshot.getValue(PlaceDetailFirebase.class);
+        place.setPlaceId(dataSnapshot.getKey());
         placeDetailsService.savePlaceDetails(place);
 
-        if(null!=place.getOpeningHours())
-        {
-        	OpeninghourEntity openini= MapperUtil.mapBean(place.getOpeningHours(), OpeninghourEntity.class);
-        	openini.setPlaceId(place.getPlaceId());
-        	openinghourEntityRepo.save(openini);
+        if (null != place.getOpeningHours()) {
+            OpeninghourEntity openini = MapperUtil.mapBean(place.getOpeningHours(), OpeninghourEntity.class);
+            openini.setPlaceId(place.getPlaceId());
+            openinghourEntityRepo.save(openini);
         }
-        PlaceDetailFirebase placeDetailFirebase = MapperUtil.mapBean(place,
-            PlaceDetailFirebase.class);
-        firebasePlaceService
-            .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA)
-            .child(place.getPlaceId()).setValue(placeDetailFirebase);
-        
-		firebasePlaceService
-		        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_NEW_DATA)
-		        .child(place.getPlaceId()).removeValue();
-        
+        PlaceDetailFirebase placeDetailFirebase = MapperUtil.mapBean(place, PlaceDetailFirebase.class);
+
+        firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA, place.getPlaceId(), placeDetailFirebase);
+
+        // firebasePlaceService.removeObjectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA,
+        // place.getPlaceId(), placeDetailFirebase);
         log.info("Se inserto el elemendo ");
     }
+
+    public void updatePlace(String placeId, boolean isReview, boolean isUpdate,int cant,float reviewProm) {
+
+        PlaceEntity entity = placeEntityRepo.findOne(placeId);
+       
+        if (isReview) {
+            entity.setReviewsCount(cant);
+            entity.setRating(reviewProm);
+        }
+        if (isUpdate) {
+            entity.setUpdatesCount(cant);
+        }
+        placeEntityRepo.save(entity);
+        PlaceDetailFirebase placeDetailFirebase = MapperUtil.mapBean(entity, PlaceDetailFirebase.class);
+
+        OpeninghourEntity open = openinghourEntityRepo.findOne(entity.getPlaceId());
+        if (null != open) {
+            OpeningHours openHours = new OpeningHours();
+            openHours.setWeekdayText(Arrays.asList(open.getWeekdayText().replace("[", "").replace("]", "").trim().split(",")));
+            placeDetailFirebase.setOpeningHours(openHours);
+        }
+
+        firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA, entity.getPlaceId(), placeDetailFirebase);
+
+    }
     
-    
-    
-    public void updatePlace(String placeId,boolean isReview,boolean isUpdate)
-    {
-    	
-    	PlaceEntity entity = placeEntityRepo.findOne(placeId);
-    	if(isReview)
-    	{
-    		entity.setReviewsCount(entity.getReviewsCount()+1);
-    	}
-    	if(isUpdate)
-    	{
-    		entity.setUpdatesCount(entity.getUpdatesCount()+1);
-    	}
-    	placeEntityRepo.save(entity);
-    	 PlaceDetailFirebase placeDetailFirebase = MapperUtil.mapBean(entity,
-    	            PlaceDetailFirebase.class);
-    	firebasePlaceService
-        .getDatabaseReference(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA)
-        .child(entity.getPlaceId()).setValue(placeDetailFirebase);
+    public void updateRPlace(String placeId, boolean isReview, boolean isUpdate,int cant,float reviewProm) {
+
+        PlaceEntity entity = placeEntityRepo.findOne(placeId);
+       
+        if (isReview) {
+            entity.setReviewsCount(cant);
+            entity.setRating(reviewProm);
+        }
+        if (isUpdate) {
+            entity.setUpdatesCount(cant);
+        }
+        placeEntityRepo.save(entity);
+        PlaceDetailFirebase placeDetailFirebase = MapperUtil.mapBean(entity, PlaceDetailFirebase.class);
+
+        OpeninghourEntity open = openinghourEntityRepo.findOne(entity.getPlaceId());
+        if (null != open) {
+            OpeningHours openHours = new OpeningHours();
+            openHours.setWeekdayText(Arrays.asList(open.getWeekdayText().replace("[", "").replace("]", "").trim().split(",")));
+            placeDetailFirebase.setOpeningHours(openHours);
+        }
+
+//        firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA, entity.getPlaceId(), placeDetailFirebase);
+
     }
 }

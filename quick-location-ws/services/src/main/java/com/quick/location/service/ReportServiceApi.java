@@ -10,4 +10,6 @@ public interface ReportServiceApi {
     public void save(ReportEntity reportEntity);
     
     public List<ReportFirebase> getByPlacePlaceId(String placeID);
+
+    public ReportEntity findByPk(int idReport);
 }

@@ -27,6 +27,8 @@ public class PlaceDetailFirebase extends Place {
 	private String website;
 	private long reviewsCount;
 	private long updatesCount;
+	private String vicinity;
+	private int updateAcept;
 
 	@JsonSetter("formatted_address")
 

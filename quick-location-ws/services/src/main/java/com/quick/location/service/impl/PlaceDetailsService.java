@@ -1,7 +1,5 @@
 package com.quick.location.service.impl;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 
 import org.dozer.DozerBeanMapper;
@@ -10,15 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.quick.location.entity.PlaceEntity;
-import com.quick.location.entity.ReviewEntity;
 import com.quick.location.firebase.config.FirebasePlaceService;
-import com.quick.location.model.PlaceDetail;
 import com.quick.location.model.PlaceDetailFirebase;
-import com.quick.location.model.ReviewFirebase;
 import com.quick.location.repo.PlaceEntityRepo;
 import com.quick.location.repo.ReviewEntityRepo;
 import com.quick.location.service.PlaceDetailsServiceApi;
-import com.quick.location.service.util.MapperUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,12 +40,12 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 	@PostConstruct
 	public void initData() {
 
-		updateFirebaseServer();
+//		updateFirebaseServer();
 	}
 
 	@Override
 	@Transactional
-	public void savePlaceDetails(PlaceDetail placeDetail) {
+	public void savePlaceDetails(PlaceDetailFirebase placeDetail) {
 		log.info("Se insertara el place y sus detalles en el servidor");
 		DozerBeanMapper mapper = new DozerBeanMapper();
 		PlaceEntity placeEntity = mapper.map(placeDetail, PlaceEntity.class);
@@ -60,17 +54,17 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 		log.info("Se Finaliza la insecion ");
 	}
 
-	private void updateFirebaseServer() {
-		log.info("Se Actualizaran los datos del servidor");
-		List<PlaceEntity> placesEntity = (List<PlaceEntity>) placeEntityRepo.findAll();
-		List<PlaceDetailFirebase> places = MapperUtil.mapAsList(placesEntity,
-		        PlaceDetailFirebase.class);
-		firebasePlaceService.setPlaceListOnFirebase(places);
-		List<ReviewEntity> reviewEntity = (List<ReviewEntity>) reviewEntityRepo.findAll();
-		List<ReviewFirebase> reviews = MapperUtil.mapAsList(reviewEntity, ReviewFirebase.class);
-		firebasePlaceService.setReviewsListOnFirebase(reviews);
-		log.info("Se Actualizaron los datos del servidor");
-	}
+//	private void updateFirebaseServer() {
+//		log.info("Se Actualizaran los datos del servidor");
+//		List<PlaceEntity> placesEntity = (List<PlaceEntity>) placeEntityRepo.findAll();
+//		List<PlaceDetailFirebase> places = MapperUtil.mapAsList(placesEntity,
+//		        PlaceDetailFirebase.class);
+//		firebasePlaceService.setPlaceListOnFirebase(places);
+//		List<ReviewEntity> reviewEntity = (List<ReviewEntity>) reviewEntityRepo.findAll();
+//		List<ReviewFirebase> reviews = MapperUtil.mapAsList(reviewEntity, ReviewFirebase.class);
+//		firebasePlaceService.setReviewsListOnFirebase(reviews);
+//		log.info("Se Actualizaron los datos del servidor");
+//	}
 
 //	@Transactional
 //	public void updatePlaceListener() {

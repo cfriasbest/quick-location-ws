@@ -11,8 +11,11 @@ import com.quick.location.service.util.MapperUtil;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -22,19 +25,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReportService implements ReportServiceApi {
 
-	@Autowired
-	ReportEntityRepo reportEntityRepo;
+    @Autowired
+    ReportEntityRepo reportEntityRepo;
 
-	@Override
-	public void save(ReportEntity reportEntity) {
-		reportEntityRepo.save(reportEntity);
+    @Override
+    public void save(ReportEntity reportEntity) {
+        reportEntityRepo.save(reportEntity);
 
-	}
+    }
 
-	@Override
-	public List<ReportFirebase> getByPlacePlaceId(String placeID) {
-		List<ReportEntity> reports = reportEntityRepo.getByPlacePlaceId(placeID); 
-		return MapperUtil.mapAsList(reports, ReportFirebase.class);
-	}
+    @Override
+    @Transactional
+    public List<ReportFirebase> getByPlacePlaceId(String placeID) {
+        List<ReportEntity> reports = reportEntityRepo.getByPlacePlaceId(placeID);
+        return MapperUtil.mapAsList(reports, ReportFirebase.class);
+    }
+
+    @Override
+    public ReportEntity findByPk(int idReport) {
+        return reportEntityRepo.findOne(idReport);
+    }
 
 }

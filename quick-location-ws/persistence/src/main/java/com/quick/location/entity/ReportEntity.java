@@ -1,7 +1,18 @@
 package com.quick.location.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 import org.dozer.Mapping;
 
@@ -13,85 +24,95 @@ import org.dozer.Mapping;
 @Table(name = "report")
 @NamedQuery(name = "ReportEntity.findAll", query = "SELECT r FROM ReportEntity r")
 public class ReportEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_report")
-	private int idReport;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_report")
+    private int idReport;
 
-	private String author;
+    private String author;
 
-	private String field;
+    private String field;
 
-	@Mapping("field_human")
-	@Column(name = "field_human")
-	private String fieldHuman;
+    @Mapping("field_human")
+    @Column(name = "field_human")
+    private String fieldHuman;
+    @Column(insertable=false, updatable=true)
+    private Timestamp date;
 
-	@Lob
-	private String value;
+    @Lob
+    private String value;
 
-	// bi-directional many-to-one association to PlaceEntity
-	@ManyToOne
-	@JoinColumn(name = "place_id")
-	private PlaceEntity place;
-	
-	private boolean done;
+    // bi-directional many-to-one association to PlaceEntity
+    @ManyToOne
+    @JoinColumn(name = "place_id")
+    private PlaceEntity place;
 
-	public void setIdReport(int idReport) {
-		this.idReport = idReport;
-	}
+    private boolean done;
 
-	public String getAuthor() {
-		return this.author;
-	}
+    public void setIdReport(int idReport) {
+        this.idReport = idReport;
+    }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+    public String getAuthor() {
+        return this.author;
+    }
 
-	public String getField() {
-		return this.field;
-	}
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-	public void setField(String field) {
-		this.field = field;
-	}
+    public String getField() {
+        return this.field;
+    }
 
-	public String getFieldHuman() {
-		return this.fieldHuman;
-	}
+    public void setField(String field) {
+        this.field = field;
+    }
 
-	public void setFieldHuman(String fieldHuman) {
-		this.fieldHuman = fieldHuman;
-	}
+    public String getFieldHuman() {
+        return this.fieldHuman;
+    }
 
-	public String getValue() {
-		return this.value;
-	}
+    public void setFieldHuman(String fieldHuman) {
+        this.fieldHuman = fieldHuman;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public String getValue() {
+        return this.value;
+    }
 
-	public PlaceEntity getPlace() {
-		return this.place;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	public void setPlace(PlaceEntity place) {
-		this.place = place;
-	}
+    public PlaceEntity getPlace() {
+        return this.place;
+    }
 
-	public int getIdReport() {
-		return idReport;
-	}
+    public void setPlace(PlaceEntity place) {
+        this.place = place;
+    }
 
-	public boolean isDone() {
-		return done;
-	}
+    public int getIdReport() {
+        return idReport;
+    }
 
-	public void setDone(boolean done) {
-		this.done = done;
-	}
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
 
 }

@@ -39,7 +39,7 @@ public class WsApiController extends AbstractController {
         log.info("Ingresando al metodo savePlacesDetails");
         log.info(" Se almacenara el la siguiente Trama" + placeDetails.toString());
 
-        placeDetailsServiceApi.savePlaceDetails(placeDetails.getResult());
+//        placeDetailsServiceApi.savePlaceDetails(placeDetails.getResult());
 
         log.info("Saliendo al metodo savePlacesDetails");
 
