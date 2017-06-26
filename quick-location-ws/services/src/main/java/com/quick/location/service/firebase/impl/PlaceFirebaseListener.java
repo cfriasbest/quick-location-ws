@@ -140,7 +140,7 @@ public class PlaceFirebaseListener {
 
         firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA, place.getPlaceId(), placeDetailFirebase);
 
-         firebasePlaceService.removeObjectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_DATA,
+         firebasePlaceService.removeObjectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_NEW_DATA,
          place.getPlaceId());
         log.info("Se inserto el elemendo ");
     }

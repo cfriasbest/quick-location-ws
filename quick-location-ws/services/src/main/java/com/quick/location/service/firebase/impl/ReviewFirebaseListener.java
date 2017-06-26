@@ -104,17 +104,25 @@ public class ReviewFirebaseListener {
 
                 for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
                     ReviewFirebase entity = dataSnapshot2.getValue(ReviewFirebase.class);
+                    entity.setPlaceId(dataSnapshot.getKey());
                     try {
                         ReviewEntity entitys = reviewEntityRepo.findOne(entity.getIdreviews());
                         entitys.setDone(true);
                         reviewEntityRepo.save(entitys);
                         List<ReviewEntity> lastReview = reviewService.getLastReviewByPlace(entity.getPlaceId());
+                        if(!lastReview.isEmpty())
+                        {
                         float reviewProm = 0;
                         for (ReviewEntity rev : lastReview) {
                             reviewProm += NumberUtils.toFloat(rev.getRating());
                         }
                         reviewProm = reviewProm / lastReview.size();
                         placeFirebaseListener.updatePlace(entity.getPlaceId(), true, false, lastReview.size(), reviewProm);
+                        }
+                        else
+                        {
+                            placeFirebaseListener.updatePlace(entity.getPlaceId(), true, false, 0, 0);
+                        }
                         log.info("Se removio el elemendo ");
                     } catch (Exception e) {
                         placeFirebaseListener.updatePlace(entity.getPlaceId(), true, false, 0, 0);
@@ -138,6 +146,7 @@ public class ReviewFirebaseListener {
 
     private void insertarUpdatePlaceBD(DataSnapshot dataSnapshot, String key) {
 
+        boolean change = false;
         ReviewFirebase entity = dataSnapshot.getValue(ReviewFirebase.class);
         entity.setPlaceId(key);
         if (entity.isDone()) {
@@ -149,9 +158,12 @@ public class ReviewFirebaseListener {
             ReviewEntity reviewEntity = MapperUtil.mapBean(entity, ReviewEntity.class);
             reviewEntity.setDone(true);
             reviewService.save(reviewEntity);
+            change = true;
         }
 
         List<ReviewEntity> lastReview = reviewService.getLastReviewByPlace(entity.getPlaceId());
+        if(null!=lastReview && change)
+        {
         float reviewProm = 0;
         for (ReviewEntity rev : lastReview) {
             reviewProm += NumberUtils.toFloat(rev.getRating());
@@ -159,6 +171,15 @@ public class ReviewFirebaseListener {
         reviewProm = reviewProm / lastReview.size();
         placeFirebaseListener.updatePlace(entity.getPlaceId(), true, false, lastReview.size(), reviewProm);
         firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_TOP_10_LAST_REVIEW, "", MapperUtil.mapAsList(lastReview, TopReviewFirebase.class));
+        }else
+        {
+           if(change)
+           {
+            placeFirebaseListener.updatePlace(entity.getPlaceId(), true, false, 0, 0);
+            firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_TOP_10_LAST_REVIEW, "", MapperUtil.mapAsList(lastReview, TopReviewFirebase.class));
+           }
+        }
+        
         //
         // }
 

@@ -45,7 +45,7 @@ public class PlaceDetailsService implements PlaceDetailsServiceApi {
 	@PostConstruct
 	public void initData() {
 
-		updateFirebaseServer();
+//		updateFirebaseServer();
 	}
 
 	@Override
