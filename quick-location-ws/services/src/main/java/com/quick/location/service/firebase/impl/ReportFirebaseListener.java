@@ -61,7 +61,7 @@ public class ReportFirebaseListener {
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 log.info("Se procede a insertar el reporte");
                 for (DataSnapshot dataSnapshotItem : dataSnapshot.getChildren()) {
-                    insertarPlaceBD(dataSnapshotItem);
+                    insertarReportBD(dataSnapshotItem);
                 }
                 log.info("Se inserto correctamente el elemendo ");
 
@@ -149,7 +149,7 @@ public class ReportFirebaseListener {
 
     }
 
-    private void insertarPlaceBD(DataSnapshot dataSnapshot) {
+    private void insertarReportBD(DataSnapshot dataSnapshot) {
         ImprovementRequest inData = dataSnapshot.getValue(ImprovementRequest.class);
         toDataEntity(inData, dataSnapshot.getKey());
 

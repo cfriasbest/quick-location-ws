@@ -54,7 +54,7 @@ public class ReviewFirebaseListener {
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 log.info("Se inserto el elemendo onChildAdded");
                 for (DataSnapshot dataSnapshotItem : dataSnapshot.getChildren()) {
-                    insertarPlaceBD(dataSnapshotItem);
+                    insertarReviewBD(dataSnapshotItem);
                 }
             }
 
@@ -94,7 +94,7 @@ public class ReviewFirebaseListener {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
                 for (DataSnapshot dataSnapshotItem : dataSnapshot.getChildren()) {
-                    insertarUpdatePlaceBD(dataSnapshotItem, dataSnapshot.getKey());
+                    insertarUpdateReviewBD(dataSnapshotItem, dataSnapshot.getKey());
                 }
                 log.info("Se cambio el elemendo ");
             }
@@ -144,7 +144,7 @@ public class ReviewFirebaseListener {
 
     }
 
-    private void insertarUpdatePlaceBD(DataSnapshot dataSnapshot, String key) {
+    private void insertarUpdateReviewBD(DataSnapshot dataSnapshot, String key) {
 
         boolean change = false;
         ReviewFirebase entity = dataSnapshot.getValue(ReviewFirebase.class);
@@ -186,7 +186,7 @@ public class ReviewFirebaseListener {
         log.info("Se inserto el elemendo ");
     }
 
-    private void insertarPlaceBD(DataSnapshot dataSnapshot) {
+    private void insertarReviewBD(DataSnapshot dataSnapshot) {
         ImprovementRequest inData = dataSnapshot.getValue(ImprovementRequest.class);
         ReviewFirebase entity = QuickLocationUtil.toData(inData, ReviewFirebase.class);
         entity.setAuthorName(inData.getAuthor());
