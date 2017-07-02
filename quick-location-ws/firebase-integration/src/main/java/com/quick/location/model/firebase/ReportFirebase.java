@@ -1,6 +1,4 @@
-package com.quick.location.model;
-
-
+package com.quick.location.model.firebase;
 
 import java.util.Date;
 
@@ -17,18 +15,18 @@ import lombok.ToString;
 public class ReportFirebase {
 
     private int idReport;
-    
-	private String author;
 
-	private String field;
+    private String author;
 
-	private String field_human;
+    private String field;
 
-	private Object value;
+    private String field_human;
 
-	private Date date;
-	
-	private boolean done;
-	
-	private boolean remove;
+    private Object value;
+
+    private Date date;
+
+    private boolean done;
+
+    private boolean remove;
 }

@@ -1,4 +1,5 @@
 package com.quick.location.model;
+
 import java.util.List;
 
 import lombok.Getter;
@@ -11,5 +12,4 @@ public class ImprovementRequest {
     private List<ImprovementInformation> informations;
     private String author;
 
-  
 }

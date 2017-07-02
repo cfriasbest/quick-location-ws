@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -38,10 +36,8 @@ public class ReviewEntity implements Serializable {
     @Column(insertable=false, updatable=false)
     private Timestamp date;
 
-    // bi-directional many-to-one association to PlaceEntity
-    @ManyToOne
-    @JoinColumn(name = "place_id")
-    private PlaceEntity place;
+    @Column(name = "place_id")
+    private String placeId;
 
     private boolean done;
 
@@ -87,12 +83,13 @@ public class ReviewEntity implements Serializable {
         this.date = date;
     }
 
-    public PlaceEntity getPlace() {
-        return this.place;
+
+    public String getPlaceId() {
+        return placeId;
     }
 
-    public void setPlace(PlaceEntity place) {
-        this.place = place;
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
     }
 
     public boolean isDone() {

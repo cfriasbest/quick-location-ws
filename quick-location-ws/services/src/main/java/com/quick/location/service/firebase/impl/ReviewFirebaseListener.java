@@ -16,8 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.quick.location.entity.ReviewEntity;
 import com.quick.location.firebase.config.FirebasePlaceService;
 import com.quick.location.model.ImprovementRequest;
-import com.quick.location.model.ReviewFirebase;
-import com.quick.location.model.TopReviewFirebase;
+import com.quick.location.model.firebase.ReviewFirebase;
+import com.quick.location.model.firebase.TopReviewFirebase;
 import com.quick.location.repo.PlaceEntityRepo;
 import com.quick.location.repo.ReviewEntityRepo;
 import com.quick.location.service.ReviewServiceApi;
@@ -106,7 +106,7 @@ public class ReviewFirebaseListener {
                     ReviewFirebase entity = dataSnapshot2.getValue(ReviewFirebase.class);
                     entity.setPlaceId(dataSnapshot.getKey());
                     try {
-                        ReviewEntity entitys = reviewEntityRepo.findOne(entity.getIdreviews());
+                        ReviewEntity entitys = reviewEntityRepo.getReviewByIdreviews(entity.getIdreviews());
                         entitys.setDone(true);
                         reviewEntityRepo.save(entitys);
                         List<ReviewEntity> lastReview = reviewService.getLastReviewByPlace(entity.getPlaceId());
@@ -197,8 +197,6 @@ public class ReviewFirebaseListener {
             reviewService.save(reviewEntity);
             ReviewFirebase reviewFirebase = MapperUtil.mapBean(reviewEntity, ReviewFirebase.class);
 
-            // List<ReviewEntity> lastReview =
-            // reviewService.getLastReviewByPlace(inData.getPlaceId());
             List<ReviewEntity> lastReview = reviewService.getLastReviewByPlace(inData.getPlaceId());
             float reviewProm = 0;
             for (ReviewEntity rev : lastReview) {

@@ -1,4 +1,4 @@
-package com.quick.location.model;
+package com.quick.location.model.firebase;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -27,10 +27,8 @@ public class TopReviewFirebase {
     private Double rating;
     @Mapping("text")
     private String comment;
-    @Mapping("place.placeId")
     private String placeId;
     private boolean done;
-    @Mapping("place.name")
     private String name;
     private String date;
     

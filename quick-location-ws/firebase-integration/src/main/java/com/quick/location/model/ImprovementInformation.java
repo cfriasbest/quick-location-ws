@@ -1,14 +1,14 @@
 package com.quick.location.model;
+
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by Rosendo on 17/06/2017.
- * Esta clase define la etiqueta y el contenido que difiere al conjunto
- * de informacion que puede ser mejorada por el usuario a traves de la
- * aplicacion web
+ * Created by Rosendo on 17/06/2017. Esta clase define la etiqueta y el
+ * contenido que difiere al conjunto de informacion que puede ser mejorada por
+ * el usuario a traves de la aplicacion web
  */
 
 @Getter
@@ -17,7 +17,7 @@ public class ImprovementInformation {
     private String informationTag;
     private String informationContent;
     private boolean schedule;
-	private List<Schedule> schedules;
+    private List<Schedule> schedules;
     private String author;
 
     public String getAuthor() {
@@ -51,5 +51,5 @@ public class ImprovementInformation {
     public void setInformationContent(String informationContent) {
         this.informationContent = informationContent;
     }
-    
+
 }

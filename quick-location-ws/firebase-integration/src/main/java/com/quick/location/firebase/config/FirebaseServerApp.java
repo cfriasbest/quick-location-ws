@@ -1,8 +1,6 @@
 package com.quick.location.firebase.config;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -23,27 +21,24 @@ import com.quick.location.util.QuickLocationUtil;
 @Component
 public class FirebaseServerApp {
 
-	/**
-	 * @throws IOException
-	 */
-	@PostConstruct
-	public static void initializeFirebaseApp() throws IOException {
-		FirebaseOptions options = new FirebaseOptions.Builder()
-		        .setCredential(FirebaseCredentials.fromCertificate(FirebaseServerApp.class
-		                .getResourceAsStream(QuickLocationUtil.URL_FIREBASE_ADMIN_SDK)))
-		        .setDatabaseUrl(QuickLocationUtil.URL_FIREBASE_APP).build();
-		FirebaseApp.initializeApp(options);
-	}
+    /**
+     * @throws IOException
+     */
+    @PostConstruct
+    public static void initializeFirebaseApp() throws IOException {
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setCredential(FirebaseCredentials.fromCertificate(FirebaseServerApp.class.getResourceAsStream(QuickLocationUtil.URL_FIREBASE_ADMIN_SDK)))
+                .setDatabaseUrl(QuickLocationUtil.URL_FIREBASE_APP).build();
+        FirebaseApp.initializeApp(options);
+    }
 
-	/**
-	 * @param url
-	 * @return
-	 */
-	public DatabaseReference getDatabaseReference(String url) {
+    /**
+     * @param url
+     * @return
+     */
+    public DatabaseReference getDatabaseReference(String url) {
 
-		return FirebaseDatabase.getInstance().getReference(url);
-	}
-
-
+        return FirebaseDatabase.getInstance().getReference(url);
+    }
 
 }

@@ -22,21 +22,21 @@ import lombok.ToString;
 @JsonInclude(Include.NON_EMPTY)
 public class Place implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Geometry geometry;
-	private String name;
-	private String placeId;
-	private float rating;
+    private Geometry geometry;
+    private String name;
+    private String placeId;
+    private float rating;
 
-	@JsonSetter("place_id")
-	public void setPlaceId(String placeId) {
-		this.placeId = placeId;
-	}
+    @JsonSetter("place_id")
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
 
-	@JsonGetter("place_id")
-	public String getPlaceId() {
-		return placeId;
-	}
+    @JsonGetter("place_id")
+    public String getPlaceId() {
+        return placeId;
+    }
 
 }

@@ -38,9 +38,15 @@ public class QuickLocationUtil {
 	public static String URL_FIREBASE_DATABASE_PLACES_REPORT = URL_FIREBASE_DATABASE_CHILD_PLACES
 	        + "/report-issue";
 	
-	public static String URL_FIREBASE_DATABASE_TOP_10_LAST_REVIEW = URL_FIREBASE_DATABASE_CHILD_PLACES
-	        + "/reports/top10lastReview";
+	public static String URL_FIREBASE_DATABASE_TOP_10_USER = URL_FIREBASE_DATABASE_CHILD_PLACES
+            + "/reports/top10User";
 	
+	public static String URL_FIREBASE_DATABASE_TOP_10_LAST_REVIEW = URL_FIREBASE_DATABASE_CHILD_PLACES
+            + "/reports/top10lastReview";
+	
+	public static String URL_FIREBASE_DATABASE_STATISTICS = URL_FIREBASE_DATABASE_CHILD_PLACES
+            + "/statistics";
+
 
 	public static <T> T toData(ImprovementRequest inData, final Class<T> destType) {
 		T palceDetail = null;

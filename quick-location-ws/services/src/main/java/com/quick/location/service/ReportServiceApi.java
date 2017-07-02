@@ -3,7 +3,7 @@ package com.quick.location.service;
 import java.util.List;
 
 import com.quick.location.entity.ReportEntity;
-import com.quick.location.model.ReportFirebase;
+import com.quick.location.model.firebase.ReportFirebase;
 
 public interface ReportServiceApi {
 

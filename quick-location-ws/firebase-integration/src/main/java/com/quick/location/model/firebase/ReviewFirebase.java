@@ -1,4 +1,4 @@
-package com.quick.location.model;
+package com.quick.location.model.firebase;
 
 import java.util.Date;
 
@@ -23,16 +23,14 @@ import lombok.ToString;
 public class ReviewFirebase {
 
     private int idreviews;
-    
+
     private String authorName;
     private Double rating;
     @Mapping("text")
     private String comment;
-    @Mapping("place.placeId")
     private String placeId;
     private boolean done;
     private boolean remove;
-    
 
     private Date date;
 

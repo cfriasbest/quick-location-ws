@@ -2,7 +2,7 @@ package com.quick.location.service.impl;
 
 import com.quick.location.entity.ReportEntity;
 import com.quick.location.entity.ReviewEntity;
-import com.quick.location.model.ReportFirebase;
+import com.quick.location.model.firebase.ReportFirebase;
 import com.quick.location.repo.ReportEntityRepo;
 import com.quick.location.repo.ReviewEntityRepo;
 import com.quick.location.service.ReportServiceApi;

@@ -1,6 +1,6 @@
 package com.quick.location.service;
 
-import com.quick.location.model.PlaceDetailFirebase;
+import com.quick.location.model.firebase.PlaceDetailFirebase;
 
 public interface PlaceDetailsServiceApi {
 

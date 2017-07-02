@@ -14,7 +14,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.quick.location.entity.PlaceEntity;
 import com.quick.location.entity.ReportEntity;
 import com.quick.location.firebase.config.FirebasePlaceService;
 import com.quick.location.model.Geometry;
@@ -22,8 +21,8 @@ import com.quick.location.model.ImprovementInformation;
 import com.quick.location.model.ImprovementRequest;
 import com.quick.location.model.Location;
 import com.quick.location.model.OpeningHours;
-import com.quick.location.model.ReportFirebase;
 import com.quick.location.model.Schedule;
+import com.quick.location.model.firebase.ReportFirebase;
 import com.quick.location.repo.PlaceEntityRepo;
 import com.quick.location.service.ReportServiceApi;
 import com.quick.location.util.QuickLocationUtil;
@@ -118,9 +117,9 @@ public class ReportFirebaseListener {
                         ReportEntity rerpot = reportService.findByPk(report.getIdReport());
                         rerpot.setDone(true);
                         reportService.save(rerpot);
-                        List<ReportFirebase> repotsFirebase = reportService.getByPlacePlaceId(rerpot.getPlace().getPlaceId());
-                        placeFirebaseListener.updatePlace(rerpot.getPlace().getPlaceId(), false, true, repotsFirebase.size(), 0);
-                        firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_REPORT, rerpot.getPlace().getPlaceId(), repotsFirebase);
+                        List<ReportFirebase> repotsFirebase = reportService.getByPlacePlaceId(rerpot.getPlaceId());
+                        placeFirebaseListener.updatePlace(rerpot.getPlaceId(), false, true, repotsFirebase.size(), 0);
+                        firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_REPORT, rerpot.getPlaceId(), repotsFirebase);
                         isRemoved = true;
                     }
                     log.info("Se cambio el elemendo 1");
@@ -170,27 +169,22 @@ public class ReportFirebaseListener {
                 palceDetail.setField(dataInfo.getInformationTag());
                 palceDetail.setFieldHuman("Locacion");
                 palceDetail.setValue(dataInfo.getInformationContent());
-                PlaceEntity place = new PlaceEntity();
-                place.setPlaceId(inData.getPlaceId());
-                palceDetail.setPlace(place);
+                palceDetail.setPlaceId(inData.getPlaceId());
+
 
             } else if ("address".equals(dataInfo.getInformationTag())) {
 
                 palceDetail.setField("formattedAddress");
                 palceDetail.setFieldHuman("Direccion");
                 palceDetail.setValue(dataInfo.getInformationContent());
-                PlaceEntity place = new PlaceEntity();
-                place.setPlaceId(inData.getPlaceId());
-                palceDetail.setPlace(place);
+                palceDetail.setPlaceId(inData.getPlaceId());
 
             } else if ("telephone".equals(dataInfo.getInformationTag())) {
 
                 palceDetail.setField("formattedPhoneNumber");
                 palceDetail.setFieldHuman("Telefono");
                 palceDetail.setValue(dataInfo.getInformationContent());
-                PlaceEntity place = new PlaceEntity();
-                place.setPlaceId(inData.getPlaceId());
-                palceDetail.setPlace(place);
+                palceDetail.setPlaceId(inData.getPlaceId());
 
             } else if ("schedule".equals(dataInfo.getInformationTag())) {
                 StringBuilder stb = new StringBuilder();
@@ -204,9 +198,7 @@ public class ReportFirebaseListener {
                     palceDetail.setField(dataInfo.getInformationTag());
                     palceDetail.setFieldHuman("Nombre");
                     palceDetail.setValue(dataInfo.getInformationContent());
-                    PlaceEntity place = new PlaceEntity();
-                    place.setPlaceId(inData.getPlaceId());
-                    palceDetail.setPlace(place);
+                    palceDetail.setPlaceId(inData.getPlaceId());
 
                 }
 
@@ -214,9 +206,7 @@ public class ReportFirebaseListener {
                 palceDetail.setFieldHuman("Horarios");
 
                 palceDetail.setValue(stb.toString());
-                PlaceEntity place = new PlaceEntity();
-                place.setPlaceId(inData.getPlaceId());
-                palceDetail.setPlace(place);
+                palceDetail.setPlaceId(inData.getPlaceId());
 
             }
             try {

@@ -1,6 +1,5 @@
 package com.quick.location.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -22,17 +21,17 @@ import lombok.ToString;
 @IgnoreExtraProperties
 public class OpeningHours {
 
-	private List<String> weekdayText;
-	private boolean openNow;
+    private List<String> weekdayText;
+    private boolean openNow;
 
-	@JsonSetter("weekday_text")
-	public void setWeekdayText(List<String> weekdayText) {
-		this.weekdayText = weekdayText;
-	}
-	
-	@JsonGetter("weekday_text")
-	public List<String> getWeekdayText() {
-		return this.weekdayText;
-	}
+    @JsonSetter("weekday_text")
+    public void setWeekdayText(List<String> weekdayText) {
+        this.weekdayText = weekdayText;
+    }
+
+    @JsonGetter("weekday_text")
+    public List<String> getWeekdayText() {
+        return this.weekdayText;
+    }
 
 }
