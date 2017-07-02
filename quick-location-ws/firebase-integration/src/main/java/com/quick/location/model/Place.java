@@ -1,7 +1,6 @@
 package com.quick.location.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,38 +22,21 @@ import lombok.ToString;
 @JsonInclude(Include.NON_EMPTY)
 public class Place implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Geometry geometry;
-	private String name;
-	private String placeId;
-	private float rating;
-	private List<String> types;
-	private List<Object> addressComponents;
-//	private String icon;
-//	private String id;
-//	private String reference;
-//	private String scope;
-//	private String vicinity;
+    private Geometry geometry;
+    private String name;
+    private String placeId;
+    private float rating;
 
-	@JsonSetter("place_id")
-	public void setPlaceId(String placeId) {
-		this.placeId = placeId;
-	}
+    @JsonSetter("place_id")
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
 
-	@JsonSetter("address_components")
-	public void setAddressComponents(List<Object> addressComponents) {
-		this.addressComponents = addressComponents;
-	}
-	@JsonGetter("place_id")
-	public String getPlaceId() {
-		return placeId;
-	}
-	
-	@JsonGetter("address_components")
-	public List<Object> getAddressComponents() {
-		return addressComponents;
-	}
+    @JsonGetter("place_id")
+    public String getPlaceId() {
+        return placeId;
+    }
 
-	
 }

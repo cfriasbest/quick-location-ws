@@ -1,23 +1,21 @@
-package com.quick.location.entity;
+package com.quick.location.entity.old;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import lombok.ToString;
 
 
 /**
  * The persistent class for the sugest_data database table.
  * 
  */
-@Entity
-@Table(name="sugest_data")
+//@Entity
+//@Table(name="sugest_data")
 @NamedQuery(name="SugestDataEntity.findAll", query="SELECT s FROM SugestDataEntity s")
-@ToString
 public class SugestDataEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_Sugest_Data")
 	private String idSugestData;
 
@@ -25,14 +23,16 @@ public class SugestDataEntity implements Serializable {
 
 	private String phone;
 
-	@Column(name="place_id")
-	private String placeId;
-
 	private String schedule;
 
 	private String state;
 
 	private String user;
+
+	//bi-directional many-to-one association to PlaceEntity
+//	@ManyToOne
+//	@JoinColumn(name="place_id")
+//	private PlaceEntity place;
 
 	public SugestDataEntity() {
 	}
@@ -61,14 +61,6 @@ public class SugestDataEntity implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getPlaceId() {
-		return this.placeId;
-	}
-
-	public void setPlaceId(String placeId) {
-		this.placeId = placeId;
-	}
-
 	public String getSchedule() {
 		return this.schedule;
 	}
@@ -92,5 +84,13 @@ public class SugestDataEntity implements Serializable {
 	public void setUser(String user) {
 		this.user = user;
 	}
+
+//	public PlaceEntity getPlace() {
+//		return this.place;
+//	}
+//
+//	public void setPlace(PlaceEntity place) {
+//		this.place = place;
+//	}
 
 }

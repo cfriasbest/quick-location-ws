@@ -1,35 +1,39 @@
-package com.quick.location.entity;
+package com.quick.location.entity.old;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 
 /**
  * The persistent class for the openinghours database table.
  * 
  */
-@Entity
-@Table(name = "openinghours")
-@NamedQuery(name = "OpeninghourEntity.findAll", query = "SELECT o FROM OpeninghourEntity o")
+//@Entity
+//@Table(name="openinghours")
+@NamedQuery(name="OpeninghourEntity.findAll", query="SELECT o FROM OpeninghourEntity o")
 public class OpeninghourEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idopenHours;
-
+	private int idopeningHours;
+	
 	@Id
-	@Column(name = "place_id")
+	@Column(name="place_id")
 	private String placeId;
 
-	@Column(name = "weekday_text")
+	@Column(name="weekday_text")
 	private String weekdayText;
 
-	public int getIdopenHours() {
-		return this.idopenHours;
+	public OpeninghourEntity() {
 	}
 
-	public void setIdopenHours(int idopenHours) {
-		this.idopenHours = idopenHours;
+	public int getIdopeningHours() {
+		return this.idopeningHours;
+	}
+
+	public void setIdopeningHours(int idopeningHours) {
+		this.idopeningHours = idopeningHours;
 	}
 
 	public String getPlaceId() {

@@ -14,11 +14,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Geometry implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1901521289425520826L;
-	private Location location;
+public class Geometry implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1901521289425520826L;
+    private Location location;
 
 }
