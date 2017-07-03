@@ -104,7 +104,6 @@ public class ReportFirebaseListener {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
                 boolean isUpdate=false;
-                boolean isRemoved=false;
                 for (DataSnapshot dataSnapshotItem : dataSnapshot.getChildren()) {
                     ReportFirebase report = dataSnapshotItem.getValue(ReportFirebase.class);
                     if (report.isDone()) {
@@ -120,7 +119,6 @@ public class ReportFirebaseListener {
                         List<ReportFirebase> repotsFirebase = reportService.getByPlacePlaceId(rerpot.getPlaceId());
                         placeFirebaseListener.updatePlace(rerpot.getPlaceId(), false, true, repotsFirebase.size(), 0);
                         firebasePlaceService.objectToFirebase(QuickLocationUtil.URL_FIREBASE_DATABASE_PLACES_REPORT, rerpot.getPlaceId(), repotsFirebase);
-                        isRemoved = true;
                     }
                     log.info("Se cambio el elemendo 1");
                 }

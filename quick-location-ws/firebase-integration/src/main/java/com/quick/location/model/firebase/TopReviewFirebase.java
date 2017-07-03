@@ -1,8 +1,5 @@
 package com.quick.location.model.firebase;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import org.dozer.Mapping;
 
 import com.google.firebase.database.Exclude;
