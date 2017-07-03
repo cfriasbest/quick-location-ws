@@ -106,7 +106,7 @@ public class Top10FirebaseListener {
                 fechaHastaDate = sdf.parse(dataSnapshot4.getValue(String.class));
                 String fechaDesde = sdf.format(fechaDesdeDate);
                 String fechaHasta = sdf.format(fechaHastaDate);
-                int total = 0;
+                double total = 0;
                 List<Object> topTenFirebase = new ArrayList<>();
                 ArrayList<Object[]> mapa = reportEntityRepo.getListTopTenUserByDate(fechaDesde, fechaHasta);
                 for (Object[] objeto : mapa) {
@@ -119,7 +119,8 @@ public class Top10FirebaseListener {
                         topTen.setName((String) objeto[0]);
                         BigInteger bInt = (BigInteger) objeto[1];
                         topTen.setCount(bInt.longValue());
-                        topTen.setPorcent((topTen.getCount() / total) * 100);
+                        double valor = (topTen.getCount() / total) * 100;
+                        topTen.setPorcent(valor);
                         topTenFirebase.add(topTen);
                     } else {
                         HashMap<String, Integer> responseDefault = new HashMap<>();

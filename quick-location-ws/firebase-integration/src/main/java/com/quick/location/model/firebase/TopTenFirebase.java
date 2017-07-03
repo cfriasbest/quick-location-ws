@@ -13,7 +13,7 @@ import lombok.ToString;
 public class TopTenFirebase {
     
     String name;
-    long count;
-    long porcent;
+    double count;
+    double porcent;
 
 }
